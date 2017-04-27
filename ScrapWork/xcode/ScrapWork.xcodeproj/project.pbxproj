@@ -28,6 +28,8 @@
 		53BFE5E24C2A4D3390A2DCC0 /* ScrapWorkApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B2F135D5ACBA4A85917654E3 /* ScrapWorkApp.cpp */; };
 		6953845DA3E94F99AB78E166 /* CinderApp.icns in Resources */ = {isa = PBXBuildFile; fileRef = 379EE90EE9A34299BEC42588 /* CinderApp.icns */; };
 		7CA9A599A8F445E290C3BFE6 /* poNodeContainer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87C5101254E8455CB563BB49 /* poNodeContainer.cpp */; };
+		8375B1C11EB25102000E8762 /* WaitPatch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8375B1BF1EB25102000E8762 /* WaitPatch.cpp */; };
+		8375B1C51EB251AA000E8762 /* Patch_Particles.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8375B1C31EB251AA000E8762 /* Patch_Particles.cpp */; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		9D1CE81BA330459F80181AF1 /* poNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A48C719F70A74561A8714FC5 /* poNode.cpp */; };
 		AF420A0D27D542728CD67502 /* poShape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0B6502D8C374445880D513FF /* poShape.cpp */; };
@@ -73,6 +75,10 @@
 		4A6C501A4066408BA7487C33 /* poImage.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = poImage.cpp; path = ../blocks/poScene/src/poScene/poImage.cpp; sourceTree = "<group>"; };
 		5323E6B10EAFCA74003A9687 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = /System/Library/Frameworks/CoreVideo.framework; sourceTree = "<absolute>"; };
 		617E6166591B49CD92CD67DA /* poScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = poScene.h; path = ../blocks/poScene/src/poScene/poScene.h; sourceTree = "<group>"; };
+		8375B1BF1EB25102000E8762 /* WaitPatch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = WaitPatch.cpp; path = ../src/WaitPatch.cpp; sourceTree = "<group>"; };
+		8375B1C01EB25102000E8762 /* WaitPatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WaitPatch.h; path = ../src/WaitPatch.h; sourceTree = "<group>"; };
+		8375B1C31EB251AA000E8762 /* Patch_Particles.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Patch_Particles.cpp; path = ../src/Patch_Particles.cpp; sourceTree = "<group>"; };
+		8375B1C41EB251AA000E8762 /* Patch_Particles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Patch_Particles.h; path = ../src/Patch_Particles.h; sourceTree = "<group>"; };
 		87C5101254E8455CB563BB49 /* poNodeContainer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = poNodeContainer.cpp; path = ../blocks/poScene/src/poScene/poNodeContainer.cpp; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* ScrapWork.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ScrapWork.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8EC4007864C041098D02756D /* poVideo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = poVideo.h; path = ../blocks/poScene/src/poScene/poVideo.h; sourceTree = "<group>"; };
@@ -124,6 +130,7 @@
 				B2F135D5ACBA4A85917654E3 /* ScrapWorkApp.cpp */,
 				2838F4301EA9C92300C01931 /* Patch.cpp */,
 				2838F4311EA9C92300C01931 /* Patch.h */,
+				8375B1C21EB2510C000E8762 /* patch particles */,
 				288B19BC1EAE920B00FC8E06 /* canvas */,
 				28BAD8FE1EAA6D7800EC54EE /* patch panel */,
 				28BAD9021EAA9F3700EC54EE /* preview panel */,
@@ -251,6 +258,17 @@
 			name = src;
 			sourceTree = "<group>";
 		};
+		8375B1C21EB2510C000E8762 /* patch particles */ = {
+			isa = PBXGroup;
+			children = (
+				8375B1C31EB251AA000E8762 /* Patch_Particles.cpp */,
+				8375B1C41EB251AA000E8762 /* Patch_Particles.h */,
+				8375B1BF1EB25102000E8762 /* WaitPatch.cpp */,
+				8375B1C01EB25102000E8762 /* WaitPatch.h */,
+			);
+			name = "patch particles";
+			sourceTree = "<group>";
+		};
 		D5B414FC27B54370894B3CA4 /* poScene */ = {
 			isa = PBXGroup;
 			children = (
@@ -344,6 +362,7 @@
 				53BFE5E24C2A4D3390A2DCC0 /* ScrapWorkApp.cpp in Sources */,
 				007503DF0DD5425291E60EBA /* poEventCenter.cpp in Sources */,
 				288B19BF1EAE922800FC8E06 /* Canvas.cpp in Sources */,
+				8375B1C11EB25102000E8762 /* WaitPatch.cpp in Sources */,
 				D14F8F8D8874414BB609C55D /* poEvents.cpp in Sources */,
 				28BAD8FD1EAA6B3700EC54EE /* PreviewPanel.cpp in Sources */,
 				D6D377C1114D4D489FF9EB68 /* poImage.cpp in Sources */,
@@ -351,6 +370,7 @@
 				9D1CE81BA330459F80181AF1 /* poNode.cpp in Sources */,
 				2838F4321EA9C92300C01931 /* Patch.cpp in Sources */,
 				7CA9A599A8F445E290C3BFE6 /* poNodeContainer.cpp in Sources */,
+				8375B1C51EB251AA000E8762 /* Patch_Particles.cpp in Sources */,
 				36604132D6654B2C9BC9E476 /* poScene.cpp in Sources */,
 				AF420A0D27D542728CD67502 /* poShape.cpp in Sources */,
 				45914938B26F4C1B93CCCF8F /* poTextBox.cpp in Sources */,
