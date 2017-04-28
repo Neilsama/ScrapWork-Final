@@ -25,7 +25,7 @@ private:
     void mousedown( po::scene::MouseEvent &event );
     void pileAnimation();
     
-   
+    
     
     gl::TextureRef          pileWaitTexture;
     gl::TextureRef          pileActive1Texture;
@@ -39,8 +39,5 @@ private:
     po::scene::ImageRef     pileActive3Image;
     po::scene::ImageRef     introImage;
     
-
+    
 };
-
-
-

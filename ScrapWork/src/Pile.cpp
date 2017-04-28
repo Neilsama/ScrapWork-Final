@@ -26,15 +26,15 @@ void Pile::setup(){
     pileActive2Image = po::scene::Image::create(pileActive2Texture);
     pileActive3Image = po::scene::Image::create(pileActive3Texture);
     introImage = po::scene::Image::create(introTexture);
-
+    
     
     pileWaitImage->setAlignment(po::scene::Alignment::BOTTOM_CENTER);
     pileWaitImage->setPosition(ci::vec2(getWindowWidth()/2, getWindowHeight()));
-   
+    
     
     pileActive1Image->setAlignment(po::scene::Alignment::BOTTOM_CENTER);
     pileActive1Image->setPosition(ci::vec2(getWindowWidth()/2, getWindowHeight()));
-   
+    
     
     pileActive2Image->setAlignment(po::scene::Alignment::BOTTOM_CENTER);
     pileActive2Image->setPosition(ci::vec2(getWindowWidth()/2, getWindowHeight()));
@@ -65,14 +65,14 @@ void Pile::update(){
 void Pile::mousedown( po::scene::MouseEvent &event ) {
     switch (event.getType()) {
         case po::scene::MouseEvent::DOWN_INSIDE:
-       
+            
             if (event.getWindowPos().x >= pileWaitImage->getPosition().x-450 && event.getWindowPos().x <= pileWaitImage->getPosition().x+450 && event.getWindowPos().y >= pileWaitImage->getPosition().y-464 && event.getWindowPos().y <= pileWaitImage->getPosition().y){
                 pileAnimation();
                 
             }else{
             }
             break;
-       default:
+        default:
             break;
     }
 }
