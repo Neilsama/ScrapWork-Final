@@ -49,12 +49,12 @@ void Patch::onMouseEvent(po::scene::MouseEvent &event)
             if (mousePos.y <= 180)
             {
                 mNewPatchSignal.emit(mID);
-                //cout<<"patch in grid"<<endl;
                 
             }else if (mousePos.x >= 426 && mousePos.x <= 930 && mousePos.y >= 295 && mousePos.y <= 696)
             {
+                cout<<mID<<endl;
                 isNew = false;
-                //cout<<"patch in canvas"<<endl;
+                mNewPatchSignal.emit(mID);
             }
             
             break;
@@ -63,14 +63,11 @@ void Patch::onMouseEvent(po::scene::MouseEvent &event)
         case po::scene::MouseEvent::UP_INSIDE:
         {
             if (mousePos.x >= 426 && mousePos.x <= 930 && mousePos.y >= 295 && mousePos.y <= 696)
-            {
                 mIsInCanvasSignal.emit(true);
-                //cout<<"released in canvas"<<endl;
-            }
-            else{
+            
+            else
                 mIsInCanvasSignal.emit(false);
-                //cout<<"released out of canvas"<<endl;
-            }
+            
             break;
         
         }
