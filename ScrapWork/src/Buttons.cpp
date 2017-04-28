@@ -21,8 +21,6 @@ void Buttons::setup(gl::TextureRef btnImg, gl::TextureRef btnActiveImg){
     
     addChild(mButton);
     addChild(mButtonActive);
-
-
     
     getSignal(po::scene::MouseEvent::DOWN_INSIDE).connect(std::bind(&Buttons::mousedown, this, std::placeholders::_1));
 }
@@ -31,7 +29,7 @@ void Buttons::mousedown(po::scene::MouseEvent &event)
 {
     switch (event.getType()) {
         case po::scene::MouseEvent::DOWN_INSIDE:
-            btnIsActivated = !btnIsActivated;
+            btnIsActivated = true;
             if (btnIsActivated){
                 ci::app::timeline().apply(&mButtonActive->getAlphaAnim(), 0.f, 1.f, 0.8f,EaseOutExpo());
                 ci::app::timeline().apply(&mButton->getAlphaAnim(), 1.f, 0.f, 0.8f,EaseOutExpo());
