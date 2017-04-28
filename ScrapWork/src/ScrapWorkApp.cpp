@@ -72,15 +72,16 @@ void ScrapWorkApp::setup()
     activeContainer->addChild(mPreviewPanel);
     activeContainer->addChild(mCanvas);
     
+    
+    
     // connect signal;
     for (int i = 0; i<mSelectPatchPanel->getPatchNum(); i++) {
         mSelectPatchPanel->getPatch(i)->getNewPatchSignal().connect(std::bind(&ScrapWorkApp::generateNewPatch,this, std::placeholders::_1));
     }
     
-    
-    
     mButtonMenu = buttonMenu::create() ;
     activeContainer->addChild(mButtonMenu) ;
+    
 }
 
 void ScrapWorkApp::generateNewPatch(int number)
