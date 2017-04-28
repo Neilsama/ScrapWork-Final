@@ -22,7 +22,9 @@ void Canvas::setup(ci::gl::TextureRef   canvasTexture)
 {
     mPCanvasImg = po::scene::Image::create(canvasTexture);
     mPCanvasImg->setPosition(mPosition);
+    //    mPCanvasImg->setDrawBounds(true) ;
     addChild(mPCanvasImg);
+    
     
     for(int i = 0 ; i < 5 ; i++) {
         for(int j = 0 ; j < 4 ; j++) {
@@ -54,8 +56,6 @@ void Canvas::setTexture(ci::gl::TextureRef mTex, int getCounter)
     
     //    mCounter = 0 ;
 }
-
-
 Canvas::Canvas()
 :mPosition(ci::vec2(426.f, 295.f))
 {}

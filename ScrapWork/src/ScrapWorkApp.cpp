@@ -43,10 +43,11 @@ class ScrapWorkApp : public App {
     CanvasRef                       mCanvas; // canvas image
     
     
-    std::vector<PatchRef>           patchesQueue; //all id of patches that already add in canvas
+    std::vector<int>           patchesQueue; //all id of patches that already add in canvas
     PatchRef                        newPatch; // when click on patch in grid, will generate a new patch
     int                             mCounter ;
     buttonMenuRef                   mButtonMenu ;
+    po::scene::ImageRef             mClearButton ;
 };
 
 void ScrapWorkApp::setup()
@@ -84,50 +85,34 @@ void ScrapWorkApp::setup()
 
 void ScrapWorkApp::generateNewPatch(int number)
 {
-    cout<<"emiting signal patch ID is: "<<number<<endl;
-    if (number < 24) {
-        newPatch = Patch::create(mSelectPatchPanel->getPatch(number)->getTexture());
-        newPatch->setAlpha(0.f);
-        ci::app::timeline().apply(&newPatch->getPositionAnim(), mSelectPatchPanel->getPatch(number)->getPosition(), mSelectPatchPanel->getPatch(number)->getPosition()-ci::vec2(-10), 0.2f, EaseInAtan());
-        ci::app::timeline().apply(&newPatch->getAlphaAnim(), 0.f, 1.f, 0.2f, EaseInAtan());
-        ci::app::timeline().apply(&newPatch->getScaleAnim(), ci::vec2(0.f), ci::vec2(2.f), 0.2f, EaseInAtan());
-        
-        newPatch->setAsNew(true);
-        newPatch->setID(mSelectPatchPanel->getPatchNum()+patchesQueue.size());
-        activeContainer->addChild(newPatch);
-        
-        newPatch->getIsInCavasSignal().connect(std::bind(&ScrapWorkApp::showOnCanvas, this,std::placeholders::_1));
-        newPatch->getNewPatchSignal().connect(std::bind(&ScrapWorkApp::generateNewPatch,this, std::placeholders::_1));
-        //cout<<"generate a new patch, id is: "<<newPatch->getID()<<endl;
-    }
-    else
-    {
-        for (int i = 0; i < patchesQueue.size(); i++) {
-            cout<<"patchQuere["<<i<<"] id : "<<patchesQueue[i]->getID()<<endl;
-            if (patchesQueue[i]->getID() == number) {
-                newPatch = patchesQueue[i];
-                cout<<"not generate new one, newPatch ID is : "<<newPatch->getID()<<endl;
-            }
-        }
-    }
+    cout<<"generate a new patch"<<endl;
+    newPatch = Patch::create(mSelectPatchPanel->getPatch(number)->getTexture());
+    //    newPatch->setAlpha(0.f);
+    //    newPatch->setPosition(mSelectPatchPanel->getPatch(number)->getPosition()-ci::vec2(-10));
+    ci::app::timeline().apply(&newPatch->getPositionAnim(), mSelectPatchPanel->getPatch(number)->getPosition(), mSelectPatchPanel->getPatch(number)->getPosition()-ci::vec2(-10), 0.2f, EaseInAtan());
+    ci::app::timeline().apply(&newPatch->getAlphaAnim(), 0.f, 1.f, 0.2f, EaseInAtan());
+    ci::app::timeline().apply(&newPatch->getScaleAnim(), ci::vec2(0.f), ci::vec2(2.f), 0.2f, EaseInAtan());
+    
+    newPatch->setAsNew(true);
+    newPatch->setID(mSelectPatchPanel->getPatchNum()+patchesQueue.size()+1);
+    activeContainer->addChild(newPatch);
+    
+    newPatch->getIsInCavasSignal().connect(std::bind(&ScrapWorkApp::showOnCanvas, this,std::placeholders::_1));
     
 
 }
 
 void ScrapWorkApp::showOnCanvas(bool state)
 {
-    if (state) { // move new patch in, show on canvas
-        if(newPatch->getIsNew()){ // if it's the new generated patch
-            patchesQueue.push_back(newPatch);
-            newPatch->setAsNew(false);
+    if (state) {
+        if(newPatch->getIsNew()){
+            patchesQueue.push_back(newPatch->getID());
             activeContainer->removeChild(newPatch);
             mCanvas->addChild(newPatch);
-            //getPosInCanvas(std::floor((newPatch->getPosition().x - 426)/100) , std::floor((newPatch->getPosition().y - 295)/100));
-            
-//            newPatch->setDrawBounds(true);
-//            newPatch->setAlignment(po::scene::Alignment::TOP_LEFT);
-//            cout <<"patch position is: "<<newPatch->getPosition() - mCanvas->getSize()-mCanvas->getPosition() - ci::vec2(0,180)<<endl;
-//            cout << "position is : "<<std::floor((newPatch->getPosition().x - mCanvas->getPosition().x - mCanvas->getSize().x)/100) <<", "<<std::floor((newPatch->getPosition().y - 295)/100)<<endl;
+            cout<<"add a new patch:"<<newPatch->getID()<<endl;
+            cout<<" now the size of patch queue is: "<<patchesQueue.size()<<endl;
+            //cout<<"showOnCanvas signal state : "<<state<<endl;
+            //            newPatch
             for(int i = 0 ; i < 5 ; i++) {
                 for(int j = 0 ; j < 4 ; j++) {
                     if(getMousePos().x >= (428+100*i) && getMousePos().x <= (528+100*i)
@@ -145,31 +130,24 @@ void ScrapWorkApp::showOnCanvas(bool state)
                     }
                 }
             }
-
         }
-    
-    }else // doesn't move in to canvas
-    {
-        if(newPatch->getIsNew()) // new generated one, but not put in the canvas
+        else
+            cout<<"still the patch in canvas"<<endl;
+    }else{
+        //cout<<"out of canvas"<<endl;
+        if(newPatch->getIsNew())
             activeContainer->removeChild(newPatch);
-        else{  // previous in canvas, need to be deleted
-            for (auto p = patchesQueue.begin(); p != patchesQueue.end();) {
-                if ((*p)->getID() == newPatch->getID()) {
-                patchesQueue.erase(p);
-                cout<<"size of patch queue : "<<patchesQueue.size()<<endl;
-                }else   p++; // fuck this line is very important, cost me 2h to find this bug!!!!!!!!!!
-            }
+        else
             mCanvas->removeChild(newPatch);
-        }
+        
         cout<<"removed child"<<endl;
     }
-    
 }
 
 void ScrapWorkApp::mouseUp(ci::app::MouseEvent event)
 {
-    ci::vec2 posInCanvas = ci::vec2(floor((event.getX() - 426.f)/100.f), floor((event.getY() - 259.f)/100.f));
-    cout <<"patch position is: ( "<<posInCanvas.x<<", "<<posInCanvas.y<<")"<<endl;
+//    ci::vec2 posInCanvas = ci::vec2(floor((event.getX() - 426.f)/100.f), floor((event.getY() - 259.f)/100.f));
+//    cout <<"patch position is: ( "<<posInCanvas.x<<", "<<posInCanvas.y<<")"<<endl;
 }
 
 void ScrapWorkApp::getPosInCanvas(int i, int j )
