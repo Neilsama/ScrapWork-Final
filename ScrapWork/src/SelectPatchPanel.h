@@ -42,7 +42,7 @@ private:
     int                     patchNum;
     std::vector<PatchRef>   mPatches;
     std::vector<ci::gl::TextureRef>     mPatchesTexture;
-
+    
     
     
 };

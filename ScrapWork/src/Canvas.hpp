@@ -16,6 +16,7 @@
 #include "Patch.h"
 #include "poShape.h"
 
+
 using namespace ci;
 using namespace ci::app;
 using namespace std;
@@ -31,7 +32,6 @@ public:
     static CanvasRef   create(ci::gl::TextureRef   canvasTexture);
     void setTexture(ci::gl::TextureRef mTex, int getCounter) ;
     std::vector<po::scene::ShapeRef> sendPatches() {return mPatches ;}
-
     
 private:
     Canvas();
@@ -39,8 +39,9 @@ private:
     
     ci::gl::TextureRef      mCanvasTexture;
     po::scene::ImageRef     mPCanvasImg;
-    ci::vec2                mPosition;
     std::vector<po::scene::ShapeRef>   mPatches ;
+    ci::vec2                mPosition;
+    //    po::scene::ShapeRef     mSquare ;
     int                     mCounter = 0 ;
     
     

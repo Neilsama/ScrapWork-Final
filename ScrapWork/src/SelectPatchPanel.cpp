@@ -48,6 +48,7 @@ void SelectPatchPanel::setup(ci::gl::TextureRef textureRef)
         PatchRef ref = Patch::create(mPatchesTexture[i]);
         mPatches.push_back(ref);
         mPatches[i]->setID(i);
+        //        mPatches[i]->setDrawBounds(true) ;
         
         //append to select Panel
         if (i < 6)
@@ -58,9 +59,9 @@ void SelectPatchPanel::setup(ci::gl::TextureRef textureRef)
             mPatches[i]->setPosition(ci::vec2(182 + 78*(i-12),113));
         else
             mPatches[i]->setPosition(ci::vec2(205 + 78*(i-12),113));
-                
+        
         addChild(mPatches[i]);
     }
-   
+    
 }
 
