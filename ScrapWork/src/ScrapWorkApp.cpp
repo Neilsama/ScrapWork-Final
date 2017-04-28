@@ -15,6 +15,8 @@
 #include "PreviewPanel.hpp"
 #include "Canvas.hpp"
 
+#include "buttonMenu.h"
+
 using namespace ci;
 using namespace ci::app;
 using namespace std;
@@ -43,6 +45,7 @@ class ScrapWorkApp : public App {
     std::vector<PatchRef>           patchesQueue; //all id of patches that already add in canvas
     PatchRef                        newPatch; // when click on patch in grid, will generate a new patch
     int                             mCounter ;
+    buttonMenuRef                   mButtonMenu ;
 };
 
 void ScrapWorkApp::setup()
@@ -72,6 +75,10 @@ void ScrapWorkApp::setup()
         mSelectPatchPanel->getPatch(i)->getNewPatchSignal().connect(std::bind(&ScrapWorkApp::generateNewPatch,this, std::placeholders::_1));
     }
     
+    
+    
+    mButtonMenu = buttonMenu::create() ;
+    activeContainer->addChild(mButtonMenu) ;
 }
 
 void ScrapWorkApp::generateNewPatch(int number)
