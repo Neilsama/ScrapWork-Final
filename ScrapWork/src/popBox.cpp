@@ -15,10 +15,12 @@ void popBox::setup(gl::TextureRef popBoxImg){
     mPopBox->setAlignment(po::scene::Alignment::CENTER_CENTER);
     mPopBox->setPosition(getWindowWidth()/2, getWindowHeight()/2);
     addChild(mPopBox);
-
-}
-
-void popBox::updatePopBox(){
+    
     
 }
 
+
+void popBox::setToNormal()
+{
+    mPopBox->setAlpha(0.f);
+}
