@@ -42,13 +42,14 @@ class ScrapWorkApp : public App {
     
     std::vector<PatchRef>           patchesQueue; //all id of patches that already add in canvas
     PatchRef                        newPatch; // when click on patch in grid, will generate a new patch
+    int                             mCounter ;
 };
 
 void ScrapWorkApp::setup()
 {
     ci::app::setWindowSize(1280.f, 800.f);
     
-    
+    mCounter = 0 ;
     activeContainer = po::scene::NodeContainer::create();//  create boss container
     mScence = po::scene::Scene::create(activeContainer);
     
@@ -119,7 +120,24 @@ void ScrapWorkApp::showOnCanvas(bool state)
 //            newPatch->setAlignment(po::scene::Alignment::TOP_LEFT);
 //            cout <<"patch position is: "<<newPatch->getPosition() - mCanvas->getSize()-mCanvas->getPosition() - ci::vec2(0,180)<<endl;
 //            cout << "position is : "<<std::floor((newPatch->getPosition().x - mCanvas->getPosition().x - mCanvas->getSize().x)/100) <<", "<<std::floor((newPatch->getPosition().y - 295)/100)<<endl;
-            
+            for(int i = 0 ; i < 5 ; i++) {
+                for(int j = 0 ; j < 4 ; j++) {
+                    if(getMousePos().x >= (428+100*i) && getMousePos().x <= (528+100*i)
+                       && getMousePos().y >= (297+100*j) && getMousePos().y <= (397+100*j)) {
+                        mCanvas->setTexture(newPatch->getTexture(), mCounter) ;
+                        //                        cout << "i is " << i << endl ;
+                        //                        cout << "j is " << j << endl ;
+                        //                        cout << "MouseX is " << getMousePos().x << endl ;
+                        mPreviewPanel->getPatches(newPatch->getTexture(), mCounter) ;
+                        mCanvas->removeChild(newPatch) ;
+                    }
+                    mCounter++ ;
+                    if(i == 4 && j == 3) {
+                        mCounter = 0 ;
+                    }
+                }
+            }
+
         }
     
     }else // doesn't move in to canvas
