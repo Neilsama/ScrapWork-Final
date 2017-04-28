@@ -16,6 +16,7 @@
 #include "Canvas.hpp"
 
 #include "buttonMenu.h"
+#include "Pile.h"
 
 using namespace ci;
 using namespace ci::app;
