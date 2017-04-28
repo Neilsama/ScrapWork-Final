@@ -28,6 +28,7 @@
 		53BFE5E24C2A4D3390A2DCC0 /* ScrapWorkApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B2F135D5ACBA4A85917654E3 /* ScrapWorkApp.cpp */; };
 		6953845DA3E94F99AB78E166 /* CinderApp.icns in Resources */ = {isa = PBXBuildFile; fileRef = 379EE90EE9A34299BEC42588 /* CinderApp.icns */; };
 		7CA9A599A8F445E290C3BFE6 /* poNodeContainer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87C5101254E8455CB563BB49 /* poNodeContainer.cpp */; };
+		83070C471EB2FE8400BFBBE8 /* Grid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83070C451EB2FE8400BFBBE8 /* Grid.cpp */; };
 		8375B1C11EB25102000E8762 /* WaitPatch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8375B1BF1EB25102000E8762 /* WaitPatch.cpp */; };
 		8375B1C51EB251AA000E8762 /* Patch_Particles.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8375B1C31EB251AA000E8762 /* Patch_Particles.cpp */; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
@@ -75,6 +76,8 @@
 		4A6C501A4066408BA7487C33 /* poImage.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = poImage.cpp; path = ../blocks/poScene/src/poScene/poImage.cpp; sourceTree = "<group>"; };
 		5323E6B10EAFCA74003A9687 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = /System/Library/Frameworks/CoreVideo.framework; sourceTree = "<absolute>"; };
 		617E6166591B49CD92CD67DA /* poScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = poScene.h; path = ../blocks/poScene/src/poScene/poScene.h; sourceTree = "<group>"; };
+		83070C451EB2FE8400BFBBE8 /* Grid.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Grid.cpp; path = ../src/Grid.cpp; sourceTree = "<group>"; };
+		83070C461EB2FE8400BFBBE8 /* Grid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Grid.h; path = ../src/Grid.h; sourceTree = "<group>"; };
 		8375B1BF1EB25102000E8762 /* WaitPatch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = WaitPatch.cpp; path = ../src/WaitPatch.cpp; sourceTree = "<group>"; };
 		8375B1C01EB25102000E8762 /* WaitPatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WaitPatch.h; path = ../src/WaitPatch.h; sourceTree = "<group>"; };
 		8375B1C31EB251AA000E8762 /* Patch_Particles.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Patch_Particles.cpp; path = ../src/Patch_Particles.cpp; sourceTree = "<group>"; };
@@ -134,6 +137,7 @@
 				288B19BC1EAE920B00FC8E06 /* canvas */,
 				28BAD8FE1EAA6D7800EC54EE /* patch panel */,
 				28BAD9021EAA9F3700EC54EE /* preview panel */,
+				83070C481EB2FE9100BFBBE8 /* grid */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -258,6 +262,15 @@
 			name = src;
 			sourceTree = "<group>";
 		};
+		83070C481EB2FE9100BFBBE8 /* grid */ = {
+			isa = PBXGroup;
+			children = (
+				83070C451EB2FE8400BFBBE8 /* Grid.cpp */,
+				83070C461EB2FE8400BFBBE8 /* Grid.h */,
+			);
+			name = grid;
+			sourceTree = "<group>";
+		};
 		8375B1C21EB2510C000E8762 /* patch particles */ = {
 			isa = PBXGroup;
 			children = (
@@ -368,6 +381,7 @@
 				D6D377C1114D4D489FF9EB68 /* poImage.cpp in Sources */,
 				CC5843FED3714ADDB3C09759 /* poMatrixSet.cpp in Sources */,
 				9D1CE81BA330459F80181AF1 /* poNode.cpp in Sources */,
+				83070C471EB2FE8400BFBBE8 /* Grid.cpp in Sources */,
 				2838F4321EA9C92300C01931 /* Patch.cpp in Sources */,
 				7CA9A599A8F445E290C3BFE6 /* poNodeContainer.cpp in Sources */,
 				8375B1C51EB251AA000E8762 /* Patch_Particles.cpp in Sources */,
