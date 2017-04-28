@@ -15,7 +15,11 @@ public:
     
     void setup();
     void updateMenuState(int number);
-
+    void updatePopBoxState(int number);
+    void mouseDown(po::scene::MouseEvent &event);
+    
+    bool boxIsActive;
+    
     
 private:
     ButtonsRef btn1;
@@ -42,5 +46,10 @@ private:
     gl::TextureRef popBox2Texture;
     gl::TextureRef popBox3Texture;
     gl::TextureRef popBox4Texture;
+    
+    po::scene::ImageRef closeIcon;
+    gl::TextureRef closeIconTexture;
+    
+    
     
 };
