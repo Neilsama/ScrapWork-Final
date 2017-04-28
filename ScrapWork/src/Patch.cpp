@@ -28,6 +28,7 @@ void Patch::setup(ci::gl::TextureRef patchTexture)
     mPatchexture = patchTexture;
     mPPatchImg = po::scene::Image::create(mPatchexture);
     mPPatchImg->setScale(normalScale);
+    //    mPPatchImg->setDrawBounds(true) ;
     
     addChild(mPPatchImg);
     
@@ -35,7 +36,7 @@ void Patch::setup(ci::gl::TextureRef patchTexture)
     getSignal(po::scene::MouseEvent::DOWN_INSIDE).connect(std::bind(&Patch::onMouseEvent, this, std::placeholders::_1));
     getSignal(po::scene::MouseEvent::UP_INSIDE).connect(std::bind(&Patch::onMouseEvent, this, std::placeholders::_1));
     getSignal(po::scene::MouseEvent::DRAG_INSIDE).connect(std::bind(&Patch::onMouseEvent, this, std::placeholders::_1));
-
+    
 }
 
 
@@ -50,11 +51,12 @@ void Patch::onMouseEvent(po::scene::MouseEvent &event)
             {
                 mNewPatchSignal.emit(mID);
                 
+                //cout<<"patch in grid"<<endl;
+                
             }else if (mousePos.x >= 426 && mousePos.x <= 930 && mousePos.y >= 295 && mousePos.y <= 696)
             {
-                cout<<mID<<endl;
                 isNew = false;
-                mNewPatchSignal.emit(mID);
+                //cout<<"patch in canvas"<<endl;
             }
             
             break;
@@ -63,13 +65,17 @@ void Patch::onMouseEvent(po::scene::MouseEvent &event)
         case po::scene::MouseEvent::UP_INSIDE:
         {
             if (mousePos.x >= 426 && mousePos.x <= 930 && mousePos.y >= 295 && mousePos.y <= 696)
+            {
                 mIsInCanvasSignal.emit(true);
-            
-            else
+                
+                //cout<<"released in canvas"<<endl;
+            }
+            else{
                 mIsInCanvasSignal.emit(false);
-            
+                //cout<<"released out of canvas"<<endl;
+            }
             break;
-        
+            
         }
             
         case po::scene::MouseEvent::DRAG_INSIDE:
@@ -77,11 +83,11 @@ void Patch::onMouseEvent(po::scene::MouseEvent &event)
             mPPatchImg->setPosition(event.getLocalPos() - ci::vec2(25));
             break;
         }
-                
-            default:
-                break;
-        }
-
+            
+        default:
+            break;
+    }
+    
     
 }
 
