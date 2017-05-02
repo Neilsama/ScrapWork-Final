@@ -66,8 +66,8 @@ public:
 
 void ScrapWorkApp::setup()
 {
-    ci::app::setWindowSize(1280.f, 800.f);
-    //ci::app::setFullScreen();
+//    ci::app::setWindowSize(1280.f, 800.f);
+    ci::app::setFullScreen();
     
     mCounter = 0 ;
     mainContainer = po::scene::NodeContainer::create();
