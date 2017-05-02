@@ -11,6 +11,7 @@ using namespace std;
 
 class Pile;
 typedef std::shared_ptr<Pile> PileRef;
+typedef ci::signals::Signal<void(bool state)> changeStatusSignal;
 
 class Pile
 :public po::scene::NodeContainer
@@ -18,6 +19,8 @@ class Pile
 public:
     static PileRef  create();
     void update();
+    void reset();
+    changeStatusSignal&         getChangeStatusSigal(){ return mChangeStatusSignal;}
     
 private:
     Pile();
@@ -27,6 +30,7 @@ private:
     
     
     
+    changeStatusSignal      mChangeStatusSignal;
     gl::TextureRef          pileWaitTexture;
     gl::TextureRef          pileActive1Texture;
     gl::TextureRef          pileActive2Texture;

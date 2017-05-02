@@ -1,5 +1,15 @@
-#pragma once
+//
+//  button.hpp
+//  ScrapWork
+//
+//  Created by Neil on 4/21/17.
+//
+//
 
+#ifndef button_hpp
+#define button_hpp
+
+#include <stdio.h>
 #include "poNodeContainer.h"
 #include "poImage.h"
 
@@ -7,34 +17,35 @@ using namespace ci;
 using namespace ci::app;
 using namespace std;
 
-class Buttons;
-typedef  std::shared_ptr<Buttons> ButtonsRef;
-typedef  ci::signals::Signal<void(int number)> btnChangeState;
+class button;
+typedef std::shared_ptr<button> buttonRef;
+typedef ci::signals::Signal<void(bool state)> buttonClickedSignal;
 
-class Buttons
+class button
 :public po::scene::NodeContainer
 {
+    
 public:
-    
-    static ButtonsRef  create(gl::TextureRef btnImg, gl::TextureRef btnActiveImg);
-    btnChangeState& getbtnChangeStateSignal(){return btnStateChangeSignal;}
-    
-    void setup(gl::TextureRef btnImg, gl::TextureRef btnActiveImg);
-    void mousedown(po::scene::MouseEvent &event);
-    void setToNormal();
-    void setID(int number){mID = number;}
-    btnChangeState btnStateChangeSignal;
-    bool btnIsActivated;
-    
+    static buttonRef  create(ci::gl::TextureRef buttonNormalTexture, ci::gl::TextureRef buttonActiveTexture);
+    buttonClickedSignal& getbuttonClickedSignal(){return mButtonSignal;}
+    void onMouseEvent(po::scene::MouseEvent &event);
+    void reset();
     
 private:
+    button();
+    void  setup(ci::gl::TextureRef buttonNormalTexture, ci::gl::TextureRef buttonActiveTexture);
+    ci::gl::TextureRef      mButtonNormalTexture;
+    ci::gl::TextureRef      mButtonActiveTexture;
+    po::scene::ImageRef     mPButtonNormalImg;
+    po::scene::ImageRef     mPButtonActiveImg;
     
-    po::scene::ImageRef mButton;
-    po::scene::ImageRef mButtonActive;
     
-    gl::TextureRef mButtonTexture;
-    gl::TextureRef mButtonActiveTexture;
+    buttonClickedSignal     mButtonSignal;
+    bool                    isActive;
     
-    int             mID;
+    
+    void setActiveState();
+    void setNormalState();
 };
 
+#endif /* button_hpp */
