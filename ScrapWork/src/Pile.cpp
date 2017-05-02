@@ -34,24 +34,25 @@ void Pile::setup(){
 
     
     pileWaitImage->setAlignment(po::scene::Alignment::BOTTOM_CENTER);
-    pileWaitImage->setPosition(ci::vec2(getWindowWidth()/2, getWindowHeight()));
+    pileWaitImage->setPosition(ci::vec2(ci::app::getWindowWidth()/2, ci::app::getWindowHeight()));
     
     
     pileActive1Image->setAlignment(po::scene::Alignment::BOTTOM_CENTER);
-    pileActive1Image->setPosition(ci::vec2(getWindowWidth()/2, getWindowHeight()));
+    pileActive1Image->setPosition(ci::vec2(ci::app::getWindowWidth()/2, ci::app::getWindowHeight()));
     
     
     pileActive2Image->setAlignment(po::scene::Alignment::BOTTOM_CENTER);
-    pileActive2Image->setPosition(ci::vec2(getWindowWidth()/2, getWindowHeight()));
+    pileActive2Image->setPosition(ci::vec2(ci::app::getWindowWidth()/2, ci::app::getWindowHeight()));
     
     
     pileActive3Image->setAlignment(po::scene::Alignment::BOTTOM_CENTER);
-    pileActive3Image->setPosition(ci::vec2(getWindowWidth()/2, getWindowHeight()));
+    pileActive3Image->setPosition(ci::vec2(ci::app::getWindowWidth()/2, ci::app::getWindowHeight()));
     
     
     introImage->setAlpha(0.f);
     introImage->setAlignment(po::scene::Alignment::BOTTOM_CENTER);
-    introImage->setPosition(ci::vec2(getWindowWidth()/2, getWindowHeight()));
+    introImage->setPosition(ci::vec2(ci::app::getWindowWidth()/2, ci::app::getWindowHeight()));
+    std::cout << getWindowWidth() ;
     introImage->setDrawBounds(true);
     
     addChild(introImage);

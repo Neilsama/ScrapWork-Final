@@ -54,4 +54,5 @@ private:
     std::vector<ci::gl::TextureRef>     mPatchesTexture;
     std::vector<glm::vec2>              mRandForces ;
     std::vector<ci::gl::TextureRef>     mText ;
+    gl::TextureRef closeIconTexture;
 };
