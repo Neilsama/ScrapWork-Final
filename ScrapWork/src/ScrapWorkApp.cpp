@@ -118,6 +118,7 @@ void ScrapWorkApp::setup()
     activeContainer->addChild(mButtonMenu) ;
     
     mPile->getChangeStatusSigal().connect(std::bind(&ScrapWorkApp::ChangeStatus, this,std::placeholders::_1));
+    
     mPreviewPanel->getButton()->getbuttonClickedSignal().connect(std::bind(&ScrapWorkApp::ChangeStatus, this, std::placeholders::_1));
 }
 
@@ -179,15 +180,25 @@ void ScrapWorkApp::showOnCanvas(bool state)
 
 void ScrapWorkApp::ChangeStatus(bool state)
 {
+    cout<<"activeContainer is visible? "<<activeContainer->isVisible()<<endl;
+    cout<<"waitContainer is visible? "<<waitContainer->isVisible()<<endl;
     if (state) {
         if (waitContainer->isVisible()) {
             waitContainer->setVisible(false);
-            //mPile->reset();
+            mSelectPatchPanel->reset();
+            mCanvas->reset();
+            mPreviewPanel->reset();
+            mPreviewPanel->getButton()->getbuttonClickedSignal().connect(std::bind(&ScrapWorkApp::ChangeStatus, this, std::placeholders::_1));
             activeContainer->setVisible(true);
+            cout<<"already set active container true"<<endl;
         }
-        else if (activeContainer->isVisible())
+        else 
         {
+            cout<<"here"<<endl;
             activeContainer->setVisible(false);
+            
+            mPile->reset();
+            mPatches->reset();
             waitContainer->setVisible(true);
         }
     }

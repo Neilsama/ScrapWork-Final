@@ -20,7 +20,11 @@ Patch_Particles::Patch_Particles()
 , mVel(glm::vec2(0))
 , mAcc(glm::vec2(0))
 {
-    
+}
+
+void Patch_Particles::reset()
+{
+    setup(mPos, mAcc);
 }
 
 void Patch_Particles::setup(glm::vec2 position, glm::vec2 acceleration) {
@@ -125,7 +129,7 @@ void Patch_Particles::update()
         for(int i = 0 ; i < 24 ; i++) {
             float angle = basicA + i * 2 ;
             float x = cos(angle)*350 + ci::app::getWindowCenter().x;
-            std::cout<< x << std::endl ;
+            //std::cout<< x << std::endl ;
             float y = sin(angle)*350 + ci::app::getWindowCenter().y;
             //            gl::pushModelMatrix() ;
             //            gl::translate(ci::app::getWindowCenter()) ;

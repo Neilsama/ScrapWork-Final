@@ -28,6 +28,7 @@ class PreviewPanel
 public:
     static PreviewPanelRef  create(ci::gl::TextureRef   frameTexture);
     //void update();
+    void   reset();
     void   getPatches(ci::gl::TextureRef mTex, int getCounter) ;
     int    mCounter ;
     buttonRef  getButton(){return btnSave;}

@@ -22,6 +22,11 @@ PreviewPanelRef PreviewPanel::create(ci::gl::TextureRef frameTexture)
 
 PreviewPanel::PreviewPanel(){}
 
+void PreviewPanel::reset()
+{
+    setup(mFrameTexture);
+}
+
 void PreviewPanel::setup(ci::gl::TextureRef frameTexture)
 {
     // load preview panel frame picture

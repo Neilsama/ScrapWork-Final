@@ -26,6 +26,7 @@ public:
     void addForce() ;
     glm::vec2 getPos() {return mPos ;}
     void swirl() ;
+    void reset();
     
     
 private:
