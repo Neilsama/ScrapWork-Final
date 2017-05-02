@@ -101,5 +101,4 @@ void Pile::pileAnimation(){
     ci::app::timeline().apply(&pileWaitImage->getAlphaAnim(), 0.f, 0.5f, ci::EaseOutExpo()) ;
     ci::app::timeline().apply(&pileActive1Image->getAlphaAnim(), 0.f, 1.f, ci::EaseOutExpo()) ;
     ci::app::timeline().apply(&pileActive2Image->getAlphaAnim(), 0.f, 1.5f, ci::EaseOutExpo()) ;
-
 }
