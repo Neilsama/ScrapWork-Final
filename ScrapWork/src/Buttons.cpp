@@ -1,75 +1,55 @@
-//
-//  button.cpp
-//  ScrapWork
-//
-//  Created by Neil on 4/21/17.
-//
-//
+#include "Buttons.h"
 
-#include "button.hpp"
-#include "PreviewPanel.hpp"
-#include "poShape.h"
+using namespace po::scene;
 
-using namespace ci;
-using namespace ci::app;
-using namespace std;
-
-buttonRef button::create(ci::gl::TextureRef buttonNormalTexture, ci::gl::TextureRef buttonActiveTexture)
-{
-    buttonRef ref = std::shared_ptr<button>(new button);
-    ref->setup(buttonNormalTexture, buttonActiveTexture);
+ButtonsRef Buttons::create(gl::TextureRef btnImg, gl::TextureRef btnActiveImg){
+    ButtonsRef ref = std::shared_ptr<Buttons>(new Buttons);
+    ref -> setup(btnImg, btnActiveImg);
     return ref;
 }
 
-button::button(){}
-
-
-void button::setup(ci::gl::TextureRef buttonNormalTexture, ci::gl::TextureRef buttonActiveTexture)
-{
-    // load preview panel frame picture
-    mButtonNormalTexture = buttonNormalTexture;
-    mButtonActiveTexture = buttonActiveTexture;
-    mPButtonNormalImg = po::scene::Image::create(buttonNormalTexture);
-    mPButtonActiveImg = po::scene::Image::create(mButtonActiveTexture);
-    mPButtonActiveImg->setAlpha(0);
+void Buttons::setup(gl::TextureRef btnImg, gl::TextureRef btnActiveImg){
     
-    isActive = false;
+    mButtonTexture = btnImg;
+    mButton = po::scene::Image::create(mButtonTexture);
     
-    getSignal(po::scene::MouseEvent::DOWN_INSIDE).connect(std::bind(&button::onMouseEvent, this, std::placeholders::_1));
+    mButtonActiveTexture = btnActiveImg;
+    mButtonActive = po::scene::Image::create(mButtonActiveTexture);
     
-    addChild(mPButtonNormalImg);
-    addChild(mPButtonActiveImg);
+    mButton->setAlpha(1.f);
+    mButtonActive->setAlpha(0.f);
+    
+    addChild(mButton);
+    addChild(mButtonActive);
+    
+    getSignal(po::scene::MouseEvent::DOWN_INSIDE).connect(std::bind(&Buttons::mousedown, this, std::placeholders::_1));
 }
 
-void button::onMouseEvent(po::scene::MouseEvent &event)
+void Buttons::mousedown(po::scene::MouseEvent &event)
 {
     switch (event.getType()) {
         case po::scene::MouseEvent::DOWN_INSIDE:
-        {
-            isActive = !isActive;
-            if (isActive) {
-                setActiveState();
-                mButtonSignal.emit(true);
-            }else
-                setNormalState();
-        }
-            
+            btnIsActivated = true;
+            if (btnIsActivated){
+                ci::app::timeline().apply(&mButtonActive->getAlphaAnim(), 0.f, 1.f, 0.8f,EaseOutExpo());
+                ci::app::timeline().apply(&mButton->getAlphaAnim(), 1.f, 0.f, 0.8f,EaseOutExpo());
+                btnStateChangeSignal.emit(mID);
+            }
+            else{
+                ci::app::timeline().apply(&mButtonActive->getAlphaAnim(), 1.f, 0.f, 0.8f,EaseOutExpo());
+                ci::app::timeline().apply(&mButton->getAlphaAnim(), 0.f, 1.f, 0.8f,EaseOutExpo());
+                btnStateChangeSignal.emit(mID);
+            }
             break;
-            
         default:
             break;
     }
 }
 
-void button::setActiveState()
-{
-    ci::app::timeline().apply(&mPButtonNormalImg->getAlphaAnim(),1.f,0.f,0.1);
-    ci::app::timeline().apply(&mPButtonActiveImg->getAlphaAnim(),0.f,1.f,0.1);
-}
 
-void button::setNormalState()
+void Buttons::setToNormal()
 {
-    ci::app::timeline().apply(&mPButtonNormalImg->getAlphaAnim(),0.f,1.f,0.1);
-    ci::app::timeline().apply(&mPButtonActiveImg->getAlphaAnim(),1.f,0.f,0.1);
-    
+    mButtonActive->setAlpha(0.f);
+    mButton->setAlpha(1.f);
+    btnIsActivated = false;
 }
