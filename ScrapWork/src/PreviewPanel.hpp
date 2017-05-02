@@ -38,7 +38,7 @@ private:
     ci::gl::TextureRef      mFrameTexture;
     po::scene::ImageRef     mPFrameImg;
     po::scene::ShapeRef     mRect;
-     std::vector<po::scene::ShapeRef> mPrevPatch ;
+    std::vector<po::scene::ShapeRef> mPrevPatch ;
     
     buttonRef               btnSave;
 };
