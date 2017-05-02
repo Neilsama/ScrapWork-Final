@@ -28,7 +28,6 @@ void Patch::setup(ci::gl::TextureRef patchTexture)
     mPatchexture = patchTexture;
     mPPatchImg = po::scene::Image::create(mPatchexture);
     mPPatchImg->setScale(normalScale);
-    //    mPPatchImg->setDrawBounds(true) ;
     
     addChild(mPPatchImg);
     

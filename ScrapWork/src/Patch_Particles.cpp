@@ -35,7 +35,7 @@ void Patch_Particles::setup(glm::vec2 position, glm::vec2 acceleration) {
         try {
             
             // load pathes image into vector
-            ci::gl::TextureRef  texture = ci::gl::Texture::create(loadImage(loadAsset(std::to_string(i)+".jpg")));
+            ci::gl::TextureRef  texture = ci::gl::Texture::create(loadImage(loadAsset("patches/"+std::to_string(i+1)+".jpg")));
             mPatchesTexture.push_back(texture);
             
         } catch (exception& e) {

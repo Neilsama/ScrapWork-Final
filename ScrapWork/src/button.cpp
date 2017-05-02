@@ -49,6 +49,7 @@ void button::onMouseEvent(po::scene::MouseEvent &event)
             isActive = !isActive;
             if (isActive) {
                 setActiveState();
+                mButtonSignal.emit(true);
             }else
                 setNormalState();
         }

@@ -19,7 +19,7 @@ using namespace std;
 
 class button;
 typedef std::shared_ptr<button> buttonRef;
-//typedef ci::signals::Signal<void(bool state)> buttonClickedSignal;
+typedef ci::signals::Signal<void(bool state)> buttonClickedSignal;
 
 class button
 :public po::scene::NodeContainer
@@ -27,7 +27,7 @@ class button
     
 public:
     static buttonRef  create(ci::gl::TextureRef buttonNormalTexture, ci::gl::TextureRef buttonActiveTexture);
-    //buttonClickedSignal& getbuttonClickedSignal(){return mButtonSignal;}
+    buttonClickedSignal& getbuttonClickedSignal(){return mButtonSignal;}
     void onMouseEvent(po::scene::MouseEvent &event);
     void reset();
     
@@ -40,7 +40,7 @@ private:
     po::scene::ImageRef     mPButtonActiveImg;
     
     
-    //buttonClickedSignal     mButtonSignal;
+    buttonClickedSignal     mButtonSignal;
     bool                    isActive;
 
     
