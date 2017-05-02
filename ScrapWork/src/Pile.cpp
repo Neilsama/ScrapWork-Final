@@ -31,7 +31,7 @@ void Pile::setup(){
     pileActive2Image = po::scene::Image::create(pileActive2Texture);
     pileActive3Image = po::scene::Image::create(pileActive3Texture);
     introImage = po::scene::Image::create(introTexture);
-    
+
     
     pileWaitImage->setAlignment(po::scene::Alignment::BOTTOM_CENTER);
     pileWaitImage->setPosition(ci::vec2(getWindowWidth()/2, getWindowHeight()));
@@ -71,7 +71,7 @@ void Pile::update(){
 
 void Pile::mousedown( po::scene::MouseEvent &event ) {
     switch (event.getType()) {
-        case po::scene::MouseEvent::DOWN_INSIDE:
+                    case po::scene::MouseEvent::DOWN_INSIDE:
             
             if (event.getWindowPos().x >= pileActive3Image->getPosition().x-400 && event.getWindowPos().x <= pileActive3Image->getPosition().x+400 && event.getWindowPos().y >= pileActive3Image->getPosition().y-200 && event.getWindowPos().y <= pileActive3Image->getPosition().y)
             {
@@ -101,5 +101,4 @@ void Pile::pileAnimation(){
     ci::app::timeline().apply(&pileWaitImage->getAlphaAnim(), 0.f, 0.5f, ci::EaseOutExpo()) ;
     ci::app::timeline().apply(&pileActive1Image->getAlphaAnim(), 0.f, 1.f, ci::EaseOutExpo()) ;
     ci::app::timeline().apply(&pileActive2Image->getAlphaAnim(), 0.f, 1.5f, ci::EaseOutExpo()) ;
-    
 }

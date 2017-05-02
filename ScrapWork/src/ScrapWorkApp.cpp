@@ -24,10 +24,12 @@ using namespace ci::app;
 using namespace std;
 
 class ScrapWorkApp : public App {
+
 public:
     void setup() override;
     void update() override;
-    void draw() override;
+    void draw() override ;
+
     
     void generateNewPatch(int number);
     void showOnCanvas(bool state);
@@ -38,7 +40,6 @@ public:
     po::scene::NodeContainerRef     mainContainer;
     po::scene::NodeContainerRef     activeContainer;
     po::scene::NodeContainerRef     waitContainer;
-    
     
     PileRef                         mPile;
     
@@ -72,12 +73,12 @@ void ScrapWorkApp::setup()
     mainContainer = po::scene::NodeContainer::create();
     mScence = po::scene::Scene::create(mainContainer);
     bgPImg = po::scene::Image::create(ci::gl::Texture::create(ci::loadImage(loadAsset("bg.png"))));//  create background shape and load background image
-    
+
     mainContainer->addChild(bgPImg);
     
     activeContainer = po::scene::NodeContainer::create();//  create boss container
     waitContainer = po::scene::NodeContainer::create();
-    
+
     mainContainer->addChild(activeContainer);
     mainContainer->addChild(waitContainer);
     
@@ -107,6 +108,7 @@ void ScrapWorkApp::setup()
     activeContainer->addChild(mSelectPatchPanel);
     activeContainer->addChild(mPreviewPanel);
     activeContainer->addChild(mCanvas);
+
     
     
     // connect signal;
@@ -201,7 +203,6 @@ void ScrapWorkApp::update()
     mScence->update();
     mPatches->update() ;
     mPatches->addForce() ;
-    
 }
 
 void ScrapWorkApp::draw()
