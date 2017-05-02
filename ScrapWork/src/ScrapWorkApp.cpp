@@ -17,6 +17,7 @@
 
 #include "buttonMenu.h"
 #include "Pile.h"
+#include "Patch_Particles.h"
 
 using namespace ci;
 using namespace ci::app;
@@ -25,16 +26,21 @@ using namespace std;
 class ScrapWorkApp : public App {
   public:
 	void setup() override;
-    void getPosInCanvas(int i, int j );
-    void mouseUp(ci::app::MouseEvent event) override;
 	void update() override;
 	void draw() override;
     
     void generateNewPatch(int number);
     void showOnCanvas(bool state);
+    void ChangeStatus(bool state);
     
     po::scene::SceneRef             mScence;
+    
+    po::scene::NodeContainerRef     mainContainer;
     po::scene::NodeContainerRef     activeContainer;
+    po::scene::NodeContainerRef     waitContainer;
+
+    
+    PileRef                         mPile;
     
     po::scene::ShapeRef             bgShape; // background shape
     po::scene::ImageRef             bgPImg; // background image
@@ -48,47 +54,77 @@ class ScrapWorkApp : public App {
     int                             mCounter ;
     buttonMenuRef                   mButtonMenu ;
     po::scene::ImageRef             mClearButton ;
+    
+    
+    Patch_ParticlesRef              mPatches ;
+    float LIFE_SPAN = 500000 ;
+    const float RANDOM_FORCE_RANGE = 0.005f ;
+    
+    std::vector<glm::vec2>          randomForces ;
 };
 
 void ScrapWorkApp::setup()
 {
     ci::app::setWindowSize(1280.f, 800.f);
+    //ci::app::setFullScreen();
     
     mCounter = 0 ;
-    activeContainer = po::scene::NodeContainer::create();//  create boss container
-    mScence = po::scene::Scene::create(activeContainer);
-    
-    
+    mainContainer = po::scene::NodeContainer::create();
+    mScence = po::scene::Scene::create(mainContainer);
     bgPImg = po::scene::Image::create(ci::gl::Texture::create(ci::loadImage(loadAsset("bg.png"))));//  create background shape and load background image
+
+    mainContainer->addChild(bgPImg);
     
+    activeContainer = po::scene::NodeContainer::create();//  create boss container
+    waitContainer = po::scene::NodeContainer::create();
+
+    mainContainer->addChild(activeContainer);
+    mainContainer->addChild(waitContainer);
+    
+    activeContainer->setVisible(false);
+    
+    
+    // set up wait container
+    
+    mPatches = Patch_Particles::create(glm::vec2(0), glm::vec2(0)) ;
+    waitContainer->addChild(mPatches) ;
+    
+    mPile = Pile::create();
+    waitContainer->addChild(mPile);
+    
+    for(int i = 0 ; i < 24 ; i++) {
+        randomForces.push_back(glm::vec2(0, ci::randFloat(1,2))) ;
+    }
+    
+    
+    // set up active container
     mSelectPatchPanel = SelectPatchPanel::create(ci::gl::Texture::create(ci::loadImage(loadAsset("bg_selectGrid.png"))));//  create select patch panel
     //mSelectPatchPanel->setInteractionEnabled(true);
     
     mPreviewPanel = PreviewPanel::create(ci::gl::Texture::create(ci::loadImage(loadAsset("bg_preview.png")))); //  create preview panel
     mCanvas = Canvas::create(ci::gl::Texture::create(ci::loadImage(loadAsset("bg_canvas.png")))); //  create canvas
     
-    activeContainer->addChild(bgPImg);
     activeContainer->addChild(mSelectPatchPanel);
     activeContainer->addChild(mPreviewPanel);
     activeContainer->addChild(mCanvas);
+
     
     // connect signal;
     for (int i = 0; i<mSelectPatchPanel->getPatchNum(); i++) {
         mSelectPatchPanel->getPatch(i)->getNewPatchSignal().connect(std::bind(&ScrapWorkApp::generateNewPatch,this, std::placeholders::_1));
     }
     
-    
-    
     mButtonMenu = buttonMenu::create() ;
     activeContainer->addChild(mButtonMenu) ;
+    
+    mPile->getChangeStatusSigal().connect(std::bind(&ScrapWorkApp::ChangeStatus, this,std::placeholders::_1));
+    mPreviewPanel->getButton()->getbuttonClickedSignal().connect(std::bind(&ScrapWorkApp::ChangeStatus, this, std::placeholders::_1));
 }
 
 void ScrapWorkApp::generateNewPatch(int number)
 {
     cout<<"generate a new patch"<<endl;
     newPatch = Patch::create(mSelectPatchPanel->getPatch(number)->getTexture());
-    //    newPatch->setAlpha(0.f);
-    //    newPatch->setPosition(mSelectPatchPanel->getPatch(number)->getPosition()-ci::vec2(-10));
     ci::app::timeline().apply(&newPatch->getPositionAnim(), mSelectPatchPanel->getPatch(number)->getPosition(), mSelectPatchPanel->getPatch(number)->getPosition()-ci::vec2(-10), 0.2f, EaseInAtan());
     ci::app::timeline().apply(&newPatch->getAlphaAnim(), 0.f, 1.f, 0.2f, EaseInAtan());
     ci::app::timeline().apply(&newPatch->getScaleAnim(), ci::vec2(0.f), ci::vec2(2.f), 0.2f, EaseInAtan());
@@ -118,9 +154,6 @@ void ScrapWorkApp::showOnCanvas(bool state)
                     if(getMousePos().x >= (428+100*i) && getMousePos().x <= (528+100*i)
                        && getMousePos().y >= (297+100*j) && getMousePos().y <= (397+100*j)) {
                         mCanvas->setTexture(newPatch->getTexture(), mCounter) ;
-                        //                        cout << "i is " << i << endl ;
-                        //                        cout << "j is " << j << endl ;
-                        //                        cout << "MouseX is " << getMousePos().x << endl ;
                         mPreviewPanel->getPatches(newPatch->getTexture(), mCounter) ;
                         mCanvas->removeChild(newPatch) ;
                     }
@@ -144,20 +177,31 @@ void ScrapWorkApp::showOnCanvas(bool state)
     }
 }
 
-void ScrapWorkApp::mouseUp(ci::app::MouseEvent event)
+void ScrapWorkApp::ChangeStatus(bool state)
 {
-//    ci::vec2 posInCanvas = ci::vec2(floor((event.getX() - 426.f)/100.f), floor((event.getY() - 259.f)/100.f));
-//    cout <<"patch position is: ( "<<posInCanvas.x<<", "<<posInCanvas.y<<")"<<endl;
+    if (state) {
+        if (waitContainer->isVisible()) {
+            waitContainer->setVisible(false);
+            //mPile->reset();
+            activeContainer->setVisible(true);
+        }
+        else if (activeContainer->isVisible())
+        {
+            activeContainer->setVisible(false);
+            waitContainer->setVisible(true);
+        }
+    }
+    else
+        mPatches->swirl();
 }
 
-void ScrapWorkApp::getPosInCanvas(int i, int j )
-{
-
-}
 
 void ScrapWorkApp::update()
 {
     mScence->update();
+    mPatches->update() ;
+    mPatches->addForce() ;
+
 }
 
 void ScrapWorkApp::draw()

@@ -30,6 +30,7 @@ public:
     //void update();
     void   getPatches(ci::gl::TextureRef mTex, int getCounter) ;
     int    mCounter ;
+    buttonRef  getButton(){return btnSave;}
     
 private:
     PreviewPanel();
