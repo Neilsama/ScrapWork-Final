@@ -21,6 +21,11 @@ SelectPatchPanelRef SelectPatchPanel::create(ci::gl::TextureRef textureRef)
 SelectPatchPanel::SelectPatchPanel()
 {}
 
+void SelectPatchPanel::reset()
+{
+    setup(mGridTexture);
+}
+
 void SelectPatchPanel::setup(ci::gl::TextureRef textureRef)
 {
     mGridTexture = textureRef;

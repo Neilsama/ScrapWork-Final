@@ -18,9 +18,15 @@ CanvasRef Canvas::create(ci::gl::TextureRef  canvasTexture)
     return ref;
 }
 
+void Canvas::reset()
+{
+    setup(mCanvasTexture);
+}
+
 void Canvas::setup(ci::gl::TextureRef   canvasTexture)
 {
-    mPCanvasImg = po::scene::Image::create(canvasTexture);
+    mCanvasTexture = canvasTexture;
+    mPCanvasImg = po::scene::Image::create(mCanvasTexture);
     mPCanvasImg->setPosition(mPosition);
     //    mPCanvasImg->setDrawBounds(true) ;
     addChild(mPCanvasImg);
