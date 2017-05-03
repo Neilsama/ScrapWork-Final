@@ -107,12 +107,8 @@ void ScrapWorkApp::setup()
     activeContainer->addChild(mSelectPatchPanel);
     activeContainer->addChild(mPreviewPanel);
     activeContainer->addChild(mCanvas);
-
-<<<<<<< HEAD
-=======
     
     
->>>>>>> origin/develop
     // connect signal;
     for (int i = 0; i<mSelectPatchPanel->getPatchNum(); i++) {
         mSelectPatchPanel->getPatch(i)->getNewPatchSignal().connect(std::bind(&ScrapWorkApp::generateNewPatch,this, std::placeholders::_1));
@@ -139,11 +135,7 @@ void ScrapWorkApp::generateNewPatch(int number)
     activeContainer->addChild(newPatch);
     
     newPatch->getIsInCavasSignal().connect(std::bind(&ScrapWorkApp::showOnCanvas, this,std::placeholders::_1));
-<<<<<<< HEAD
-=======
-    
-    
->>>>>>> origin/develop
+
 }
 
 void ScrapWorkApp::showOnCanvas(bool state)
