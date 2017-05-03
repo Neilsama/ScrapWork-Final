@@ -24,7 +24,7 @@ void Pile::setup(){
     pileActive1Texture = gl::Texture::create(loadImage(loadAsset("active_pile_1.png")));
     pileActive2Texture = gl::Texture::create(loadImage(loadAsset("active_pile_2.png")));
     pileActive3Texture = gl::Texture::create(loadImage(loadAsset("active_pile_3.png")));
-    introTexture = gl::Texture::create(loadImage(loadAsset("wait_introFrame.png")));
+    introTexture = gl::Texture::create(loadImage(loadAsset("wait_introFrame_final.png")));
     
     pileWaitImage = po::scene::Image::create(pileWaitTexture);
     pileActive1Image = po::scene::Image::create(pileActive1Texture);
@@ -34,24 +34,25 @@ void Pile::setup(){
 
     
     pileWaitImage->setAlignment(po::scene::Alignment::BOTTOM_CENTER);
-    pileWaitImage->setPosition(ci::vec2(getWindowWidth()/2, getWindowHeight()));
+    pileWaitImage->setPosition(ci::vec2(ci::app::getWindowWidth()/2, ci::app::getWindowHeight()));
     
     
     pileActive1Image->setAlignment(po::scene::Alignment::BOTTOM_CENTER);
-    pileActive1Image->setPosition(ci::vec2(getWindowWidth()/2, getWindowHeight()));
+    pileActive1Image->setPosition(ci::vec2(ci::app::getWindowWidth()/2, ci::app::getWindowHeight()));
     
     
     pileActive2Image->setAlignment(po::scene::Alignment::BOTTOM_CENTER);
-    pileActive2Image->setPosition(ci::vec2(getWindowWidth()/2, getWindowHeight()));
+    pileActive2Image->setPosition(ci::vec2(ci::app::getWindowWidth()/2, ci::app::getWindowHeight()));
     
     
     pileActive3Image->setAlignment(po::scene::Alignment::BOTTOM_CENTER);
-    pileActive3Image->setPosition(ci::vec2(getWindowWidth()/2, getWindowHeight()));
+    pileActive3Image->setPosition(ci::vec2(ci::app::getWindowWidth()/2, ci::app::getWindowHeight()));
     
     
     introImage->setAlpha(0.f);
     introImage->setAlignment(po::scene::Alignment::BOTTOM_CENTER);
-    introImage->setPosition(ci::vec2(getWindowWidth()/2, getWindowHeight()));
+    introImage->setPosition(ci::vec2(ci::app::getWindowWidth()/2, ci::app::getWindowHeight()));
+    std::cout << getWindowWidth() ;
     introImage->setDrawBounds(true);
     
     addChild(introImage);
@@ -101,5 +102,4 @@ void Pile::pileAnimation(){
     ci::app::timeline().apply(&pileWaitImage->getAlphaAnim(), 0.f, 0.5f, ci::EaseOutExpo()) ;
     ci::app::timeline().apply(&pileActive1Image->getAlphaAnim(), 0.f, 1.f, ci::EaseOutExpo()) ;
     ci::app::timeline().apply(&pileActive2Image->getAlphaAnim(), 0.f, 1.5f, ci::EaseOutExpo()) ;
-
 }
