@@ -24,7 +24,7 @@ void Pile::setup(){
     pileActive1Texture = gl::Texture::create(loadImage(loadAsset("active_pile_1.png")));
     pileActive2Texture = gl::Texture::create(loadImage(loadAsset("active_pile_2.png")));
     pileActive3Texture = gl::Texture::create(loadImage(loadAsset("active_pile_3.png")));
-    introTexture = gl::Texture::create(loadImage(loadAsset("wait_introFrame_final.png")));
+    introTexture = gl::Texture::create(loadImage(loadAsset("introFrame.png")));
     
     pileWaitImage = po::scene::Image::create(pileWaitTexture);
     pileActive1Image = po::scene::Image::create(pileActive1Texture);
@@ -53,7 +53,7 @@ void Pile::setup(){
     introImage->setAlignment(po::scene::Alignment::BOTTOM_CENTER);
     introImage->setPosition(ci::vec2(ci::app::getWindowWidth()/2, ci::app::getWindowHeight()));
     std::cout << getWindowWidth() ;
-    introImage->setDrawBounds(true);
+    introImage->setDrawBounds(false);
     
     addChild(introImage);
     addChild(pileWaitImage);
