@@ -24,10 +24,12 @@ using namespace ci::app;
 using namespace std;
 
 class ScrapWorkApp : public App {
-  public:
-	void setup() override;
-	void update() override;
-	void draw() override;
+
+public:
+    void setup() override;
+    void update() override;
+    void draw() override ;
+
     
     void generateNewPatch(int number);
     void showOnCanvas(bool state);
@@ -38,7 +40,6 @@ class ScrapWorkApp : public App {
     po::scene::NodeContainerRef     mainContainer;
     po::scene::NodeContainerRef     activeContainer;
     po::scene::NodeContainerRef     waitContainer;
-
     
     PileRef                         mPile;
     
@@ -65,8 +66,8 @@ class ScrapWorkApp : public App {
 
 void ScrapWorkApp::setup()
 {
-    ci::app::setWindowSize(1280.f, 800.f);
-    //ci::app::setFullScreen();
+//    ci::app::setWindowSize(1280.f, 800.f);
+    ci::app::setFullScreen();
     
     mCounter = 0 ;
     mainContainer = po::scene::NodeContainer::create();
@@ -107,6 +108,11 @@ void ScrapWorkApp::setup()
     activeContainer->addChild(mPreviewPanel);
     activeContainer->addChild(mCanvas);
 
+<<<<<<< HEAD
+=======
+    
+    
+>>>>>>> origin/develop
     // connect signal;
     for (int i = 0; i<mSelectPatchPanel->getPatchNum(); i++) {
         mSelectPatchPanel->getPatch(i)->getNewPatchSignal().connect(std::bind(&ScrapWorkApp::generateNewPatch,this, std::placeholders::_1));
@@ -133,6 +139,11 @@ void ScrapWorkApp::generateNewPatch(int number)
     activeContainer->addChild(newPatch);
     
     newPatch->getIsInCavasSignal().connect(std::bind(&ScrapWorkApp::showOnCanvas, this,std::placeholders::_1));
+<<<<<<< HEAD
+=======
+    
+    
+>>>>>>> origin/develop
 }
 
 void ScrapWorkApp::showOnCanvas(bool state)
@@ -203,14 +214,13 @@ void ScrapWorkApp::update()
     mScence->update();
     mPatches->update() ;
     mPatches->addForce() ;
-
 }
 
 void ScrapWorkApp::draw()
 {
-	gl::clear( Color( 1, 1, 1 ) );
+    gl::clear( Color( 1, 1, 1 ) );
     mScence->draw();
-
+    
 }
 
 CINDER_APP( ScrapWorkApp, RendererGl )

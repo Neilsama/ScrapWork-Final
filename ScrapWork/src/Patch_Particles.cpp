@@ -69,23 +69,39 @@ void Patch_Particles::setup(glm::vec2 position, glm::vec2 acceleration) {
     displayPatch = po::scene::Image::create(mPatchesTexture[0]);
     addChild(displayPatch);
     displayPatch->setScale(2.0) ;
+<<<<<<< HEAD
     displayPatch->setPosition(glm::vec2(ci::app::getWindowCenter().x - 350 , ci::app::getWindowCenter().y)) ;
+=======
+    displayPatch->setPosition(glm::vec2(ci::app::getWindowCenter().x - 155 , ci::app::getWindowCenter().y-100)) ;
+    //    displayPatch->setDrawBounds(true) ;
+>>>>>>> origin/develop
     displayPatch->setAlpha(0) ;
     displayPatch->setAlignment(po::scene::Alignment::CENTER_CENTER) ;
     
-    displayText = po::scene::Shape::createRoundedRect(200.f, 100.f, 10.f) ;
+    woolText = gl::Texture::create(loadImage(loadAsset("woolText.png"))) ;
+    denimText = gl::Texture::create(loadImage(loadAsset("denimText.png"))) ;
+    linenText = gl::Texture::create(loadImage(loadAsset("linenText.png"))) ;
+    silkText = gl::Texture::create(loadImage(loadAsset("silkText.png"))) ;
+    
+    
+    displayText = po::scene::Shape::createRoundedRect(300.f, 170.f, 10.f) ;
     addChild(displayText) ;
     displayText->setAlpha(0) ;
-    displayText->setFillColor(ci::Color::gray(0.5)) ;
+//    displayText->setFillColor(ci::Color::gray(0.5)) ;
+    displayText->setTexture(woolText) ;
     displayText->setAlignment(po::scene::Alignment::CENTER_LEFT) ;
-    displayText->setPosition(glm::vec2(ci::app::getWindowCenter().x-250, ci::app::getWindowCenter().y)) ;
+    displayText->setPosition(glm::vec2(ci::app::getWindowCenter().x-50, ci::app::getWindowCenter().y-100)) ;
     
-    closeText = po::scene::Shape::createRoundedRect(20.f, 20.f, 10.f) ;
+    
+    closeIconTexture = gl::Texture::create(loadImage(loadAsset("close.png")));
+    closeText = po::scene::Shape::createRect(18.f, 18.f) ;
     addChild(closeText) ;
     closeText->setAlpha(0) ;
-    closeText->setFillColor(ci::Color::white()) ;
-    closeText->setAlignment(po::scene::Alignment::CENTER_LEFT) ;
-    closeText->setPosition(glm::vec2(ci::app::getWindowCenter().x-75, ci::app::getWindowCenter().y-35)) ;
+//    closeText->setFillColor(ci::Color::white()) ;
+    closeText->setTexture(closeIconTexture) ;
+//    closeText->setAlignment(po::scene::Alignment::CENTER_CENTER) ;
+//    closeText->setDrawBounds(true) ;
+    closeText->setPosition(glm::vec2(ci::app::getWindowCenter().x+227.5, ci::app::getWindowCenter().y-175)) ;
     
     swirlingButtonEx = po::scene::Shape::createRect(100.f,100.f) ;
     addChild(swirlingButtonEx) ;
@@ -125,6 +141,10 @@ void Patch_Particles::update()
         for(int i = 0 ; i < 24 ; i++) {
             float angle = basicA + i * 2 ;
             float x = cos(angle)*350 + ci::app::getWindowCenter().x;
+<<<<<<< HEAD
+=======
+//            std::cout<< x << std::endl ;
+>>>>>>> origin/develop
             float y = sin(angle)*350 + ci::app::getWindowCenter().y;
             mPatches[i]->setPosition(glm::vec2(x,y)) ;
         }
@@ -150,13 +170,27 @@ void Patch_Particles::onMouseEvent(po::scene::MouseEvent &event)
             for(int i = 0 ; i < 24 ; i++) {
                 if(event.getWindowPos().x >= mPatches[i]->getPosition().x-50 && event.getWindowPos().x <= mPatches[i]->getPosition().x+50 && event.getWindowPos().y >= mPatches[i]->getPosition().y && event.getWindowPos().y <= mPatches[i]->getPosition().y+100) {
                     displayPatch->setTexture(mPatchesTexture[i]) ;
+                    if(i <= 6) {
+                        displayText->setTexture(denimText) ;
+                    } else if(i > 6 && i <= 12) {
+                        displayText->setTexture(linenText) ;
+                    } else if(i > 12 && i <= 18) {
+                        displayText->setTexture(woolText) ;
+                    } else if(i > 18 && i <= 24) {
+                        displayText->setTexture(silkText) ;
+                    }
                     ci::app::timeline().apply(&displayPatch->getAlphaAnim(), 1.f, 2.f, ci::EaseOutExpo()) ;
                     ci::app::timeline().apply(&displayText->getAlphaAnim(), 1.f, 2.f, ci::EaseOutExpo()) ;
                     ci::app::timeline().apply(&closeText->getAlphaAnim(), 1.f, 2.f, ci::EaseOutExpo()) ;
                 }
             }
+<<<<<<< HEAD
             if(event.getWindowPos().x >= closeText->getPosition().x && event.getWindowPos().x <= closeText->getPosition().x + 20.f && event.getWindowPos().y >= closeText->getPosition().y-10.f && getWindowPos().y <= closeText->getPosition().y+10.f) {
                 
+=======
+            if(event.getWindowPos().x >= closeText->getPosition().x && event.getWindowPos().x <= closeText->getPosition().x + 18.f && event.getWindowPos().y >= closeText->getPosition().y && getWindowPos().y <= closeText->getPosition().y+18.f) {
+                //                std::cout << "Hit the close button!" << std::endl ;
+>>>>>>> origin/develop
                 ci::app::timeline().apply(&displayPatch->getAlphaAnim(), 0.f, 2.f, ci::EaseOutExpo()) ;
                 ci::app::timeline().apply(&displayText->getAlphaAnim(), 0.f, 2.f, ci::EaseOutExpo()) ;
                 ci::app::timeline().apply(&closeText->getAlphaAnim(), 0.f, 2.f, ci::EaseOutExpo()) ;
