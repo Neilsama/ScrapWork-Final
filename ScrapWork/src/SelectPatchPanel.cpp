@@ -21,6 +21,11 @@ SelectPatchPanelRef SelectPatchPanel::create(ci::gl::TextureRef textureRef)
 SelectPatchPanel::SelectPatchPanel()
 {}
 
+void SelectPatchPanel::reset()
+{
+    setup(mGridTexture);
+}
+
 void SelectPatchPanel::setup(ci::gl::TextureRef textureRef)
 {
     mGridTexture = textureRef;
@@ -48,8 +53,7 @@ void SelectPatchPanel::setup(ci::gl::TextureRef textureRef)
         PatchRef ref = Patch::create(mPatchesTexture[i]);
         mPatches.push_back(ref);
         mPatches[i]->setID(i);
-        //        mPatches[i]->setDrawBounds(true) ;
-        
+    
         //append to select Panel
         if (i < 6)
             mPatches[i]->setPosition(ci::vec2(182 + 78*i, 40));

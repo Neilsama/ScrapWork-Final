@@ -31,6 +31,7 @@ public:
     static  SelectPatchPanelRef create(ci::gl::TextureRef   textureRef);
     PatchRef getPatch(int index){return mPatches[index];}
     int     getPatchNum(){return patchNum;}
+    void    reset();
     
 private:
     SelectPatchPanel();

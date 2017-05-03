@@ -14,7 +14,7 @@ void popBox::setup(gl::TextureRef popBoxImg){
     mPopBox = po::scene::Image::create(mPopBoxTexture);
     mPopBox->setAlignment(po::scene::Alignment::CENTER_CENTER);
     mPopBox->setPosition(getWindowWidth()/2, getWindowHeight()/2);
-    mPopBox->setDrawBounds(true) ;
+    mPopBox->setDrawBounds(false) ;
     addChild(mPopBox);
     
     

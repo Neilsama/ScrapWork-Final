@@ -45,15 +45,8 @@ void button::onMouseEvent(po::scene::MouseEvent &event)
 {
     switch (event.getType()) {
         case po::scene::MouseEvent::DOWN_INSIDE:
-        {
-            isActive = !isActive;
-            if (isActive) {
-                setActiveState();
                 mButtonSignal.emit(true);
-            }else
-                setNormalState();
-        }
-            
+
             break;
     
         default:
