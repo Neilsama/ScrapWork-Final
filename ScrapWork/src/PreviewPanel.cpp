@@ -22,6 +22,11 @@ PreviewPanelRef PreviewPanel::create(ci::gl::TextureRef frameTexture)
 
 PreviewPanel::PreviewPanel(){}
 
+void PreviewPanel::reset()
+{
+    setup(mFrameTexture);
+}
+
 void PreviewPanel::setup(ci::gl::TextureRef frameTexture)
 {
     // load preview panel frame picture
@@ -47,7 +52,7 @@ void PreviewPanel::setup(ci::gl::TextureRef frameTexture)
         for(int j = 0 ; j < 4 ; j++) {
             mPrevPatch.push_back(po::scene::Shape::createRect(44.f,44.f)) ;
             mPrevPatch[mCounter]->setPosition(97+44*i, 434+44*j) ;
-            //            mPrevPatch[mCounter]->setDrawBounds(true) ;
+
             mPrevPatch[mCounter]->setAlpha(0.f) ;
             addChild(mPrevPatch[mCounter]) ;
             mCounter++ ;
@@ -60,15 +65,7 @@ void PreviewPanel::setup(ci::gl::TextureRef frameTexture)
 
 void PreviewPanel::getPatches(ci::gl::TextureRef mTex, int getCounter)
 {
-    //    for(int i = 0 ; i < 5 ; i++) {
-    //        for(int j = 0 ; j < 4 ; j++) {
     mPrevPatch[getCounter]->setTexture(mTex, po::scene::TextureFit::Type::EXACT) ;
     mPrevPatch[getCounter]->setAlpha(1.0) ;
-    //            mCounter++ ;
-    //            if(i == 4 && j == 3) {
-    //                mCounter = 0 ;
-    //            }
-    //        }
-    //    }
 }
 

@@ -50,12 +50,9 @@ void Patch::onMouseEvent(po::scene::MouseEvent &event)
             {
                 mNewPatchSignal.emit(mID);
                 
-                //cout<<"patch in grid"<<endl;
-                
             }else if (mousePos.x >= 426 && mousePos.x <= 930 && mousePos.y >= 295 && mousePos.y <= 696)
             {
                 isNew = false;
-                //cout<<"patch in canvas"<<endl;
             }
             
             break;
@@ -66,12 +63,9 @@ void Patch::onMouseEvent(po::scene::MouseEvent &event)
             if (mousePos.x >= 426 && mousePos.x <= 930 && mousePos.y >= 295 && mousePos.y <= 696)
             {
                 mIsInCanvasSignal.emit(true);
-                
-                //cout<<"released in canvas"<<endl;
             }
             else{
                 mIsInCanvasSignal.emit(false);
-                //cout<<"released out of canvas"<<endl;
             }
             break;
             
