@@ -45,19 +45,8 @@ void button::onMouseEvent(po::scene::MouseEvent &event)
 {
     switch (event.getType()) {
         case po::scene::MouseEvent::DOWN_INSIDE:
-        {
-//            isActive = !isActive;
-//            if (isActive) {
-//                //setActiveState();
-//                cout<<"clickec button"<<endl;
                 mButtonSignal.emit(true);
-//            }else{
-//            
-//                //mButtonSignal.emit(true);
-//                //setNormalState();
-//            }
-        }
-            
+
             break;
     
         default:

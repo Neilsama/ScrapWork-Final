@@ -61,9 +61,7 @@ void Patch_Particles::setup(glm::vec2 position, glm::vec2 acceleration) {
         mPositions.push_back(mPos) ;
         mRandForces.push_back(glm::vec2(0, ci::randFloat(0.01,0.1))) ;
         mPatches[i]->setPosition(mPos) ;
-        //        mPatches[i]->setDrawBounds(true) ;
         mPatches[i]->setAlignment(po::scene::Alignment::TOP_CENTER) ;
-        
         
         addChild(mPatches[i]);
     }
@@ -72,7 +70,6 @@ void Patch_Particles::setup(glm::vec2 position, glm::vec2 acceleration) {
     addChild(displayPatch);
     displayPatch->setScale(2.0) ;
     displayPatch->setPosition(glm::vec2(ci::app::getWindowCenter().x - 350 , ci::app::getWindowCenter().y)) ;
-    //    displayPatch->setDrawBounds(true) ;
     displayPatch->setAlpha(0) ;
     displayPatch->setAlignment(po::scene::Alignment::CENTER_CENTER) ;
     
@@ -121,7 +118,6 @@ void Patch_Particles::update()
                 mPatches[i]->setPosition(glm::vec2(ci::app::getWindowCenter().x, ci::app::getWindowCenter().y+300)) ;
                 mVel = glm::vec2(0) ;
                 mRandForces[i] = glm::vec2(0) ;
-                //                std::cout << "THIS IS RUNNING" << std::endl ;
             }
             doOnce = false ;
         }
@@ -129,12 +125,8 @@ void Patch_Particles::update()
         for(int i = 0 ; i < 24 ; i++) {
             float angle = basicA + i * 2 ;
             float x = cos(angle)*350 + ci::app::getWindowCenter().x;
-            //std::cout<< x << std::endl ;
             float y = sin(angle)*350 + ci::app::getWindowCenter().y;
-            //            gl::pushModelMatrix() ;
-            //            gl::translate(ci::app::getWindowCenter()) ;
             mPatches[i]->setPosition(glm::vec2(x,y)) ;
-            //            gl::popModelMatrix() ;
         }
     }
     
@@ -153,11 +145,10 @@ void Patch_Particles::onMouseEvent(po::scene::MouseEvent &event)
 {
     switch(event.getType()) {
         case po::scene::MouseEvent::DOWN_INSIDE:
-            //            mIsActivated = !mIsActivated ;
+            //  mIsActivated = !mIsActivated ;
             
             for(int i = 0 ; i < 24 ; i++) {
                 if(event.getWindowPos().x >= mPatches[i]->getPosition().x-50 && event.getWindowPos().x <= mPatches[i]->getPosition().x+50 && event.getWindowPos().y >= mPatches[i]->getPosition().y && event.getWindowPos().y <= mPatches[i]->getPosition().y+100) {
-                    //                    std::cout << "I hit a patch!" << std::endl ;
                     displayPatch->setTexture(mPatchesTexture[i]) ;
                     ci::app::timeline().apply(&displayPatch->getAlphaAnim(), 1.f, 2.f, ci::EaseOutExpo()) ;
                     ci::app::timeline().apply(&displayText->getAlphaAnim(), 1.f, 2.f, ci::EaseOutExpo()) ;
@@ -165,7 +156,7 @@ void Patch_Particles::onMouseEvent(po::scene::MouseEvent &event)
                 }
             }
             if(event.getWindowPos().x >= closeText->getPosition().x && event.getWindowPos().x <= closeText->getPosition().x + 20.f && event.getWindowPos().y >= closeText->getPosition().y-10.f && getWindowPos().y <= closeText->getPosition().y+10.f) {
-                //                std::cout << "Hit the close button!" << std::endl ;
+                
                 ci::app::timeline().apply(&displayPatch->getAlphaAnim(), 0.f, 2.f, ci::EaseOutExpo()) ;
                 ci::app::timeline().apply(&displayText->getAlphaAnim(), 0.f, 2.f, ci::EaseOutExpo()) ;
                 ci::app::timeline().apply(&closeText->getAlphaAnim(), 0.f, 2.f, ci::EaseOutExpo()) ;

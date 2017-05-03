@@ -99,7 +99,6 @@ void ScrapWorkApp::setup()
     
     // set up active container
     mSelectPatchPanel = SelectPatchPanel::create(ci::gl::Texture::create(ci::loadImage(loadAsset("bg_selectGrid.png"))));//  create select patch panel
-    //mSelectPatchPanel->setInteractionEnabled(true);
     
     mPreviewPanel = PreviewPanel::create(ci::gl::Texture::create(ci::loadImage(loadAsset("bg_preview.png")))); //  create preview panel
     mCanvas = Canvas::create(ci::gl::Texture::create(ci::loadImage(loadAsset("bg_canvas.png")))); //  create canvas
@@ -108,7 +107,6 @@ void ScrapWorkApp::setup()
     activeContainer->addChild(mPreviewPanel);
     activeContainer->addChild(mCanvas);
 
-    
     // connect signal;
     for (int i = 0; i<mSelectPatchPanel->getPatchNum(); i++) {
         mSelectPatchPanel->getPatch(i)->getNewPatchSignal().connect(std::bind(&ScrapWorkApp::generateNewPatch,this, std::placeholders::_1));
@@ -135,8 +133,6 @@ void ScrapWorkApp::generateNewPatch(int number)
     activeContainer->addChild(newPatch);
     
     newPatch->getIsInCavasSignal().connect(std::bind(&ScrapWorkApp::showOnCanvas, this,std::placeholders::_1));
-    
-
 }
 
 void ScrapWorkApp::showOnCanvas(bool state)
@@ -148,8 +144,7 @@ void ScrapWorkApp::showOnCanvas(bool state)
             mCanvas->addChild(newPatch);
             cout<<"add a new patch:"<<newPatch->getID()<<endl;
             cout<<" now the size of patch queue is: "<<patchesQueue.size()<<endl;
-            //cout<<"showOnCanvas signal state : "<<state<<endl;
-            //            newPatch
+            // newPatch
             for(int i = 0 ; i < 5 ; i++) {
                 for(int j = 0 ; j < 4 ; j++) {
                     if(getMousePos().x >= (428+100*i) && getMousePos().x <= (528+100*i)
@@ -165,16 +160,12 @@ void ScrapWorkApp::showOnCanvas(bool state)
                 }
             }
         }
-        else
-            cout<<"still the patch in canvas"<<endl;
+
     }else{
-        //cout<<"out of canvas"<<endl;
         if(newPatch->getIsNew())
             activeContainer->removeChild(newPatch);
         else
             mCanvas->removeChild(newPatch);
-        
-        cout<<"removed child"<<endl;
     }
 }
 
