@@ -66,7 +66,7 @@ public:
 
 void ScrapWorkApp::setup()
 {
-//    ci::app::setWindowSize(1280.f, 800.f);
+    //ci::app::setWindowSize(1280.f, 800.f);
     ci::app::setFullScreen();
     
     mCounter = 0 ;
