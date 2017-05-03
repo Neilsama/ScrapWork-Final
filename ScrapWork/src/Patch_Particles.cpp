@@ -72,10 +72,17 @@ void Patch_Particles::setup(glm::vec2 position, glm::vec2 acceleration) {
     displayPatch->setAlpha(0) ;
     displayPatch->setAlignment(po::scene::Alignment::CENTER_CENTER) ;
     
+    woolText = gl::Texture::create(loadImage(loadAsset("woolText.png"))) ;
+    denimText = gl::Texture::create(loadImage(loadAsset("denimText.png"))) ;
+    linenText = gl::Texture::create(loadImage(loadAsset("linenText.png"))) ;
+    silkText = gl::Texture::create(loadImage(loadAsset("silkText.png"))) ;
+    
+    
     displayText = po::scene::Shape::createRoundedRect(300.f, 170.f, 10.f) ;
     addChild(displayText) ;
     displayText->setAlpha(0) ;
-    displayText->setFillColor(ci::Color::gray(0.5)) ;
+//    displayText->setFillColor(ci::Color::gray(0.5)) ;
+    displayText->setTexture(woolText) ;
     displayText->setAlignment(po::scene::Alignment::CENTER_LEFT) ;
     displayText->setPosition(glm::vec2(ci::app::getWindowCenter().x-50, ci::app::getWindowCenter().y-100)) ;
     
@@ -87,7 +94,7 @@ void Patch_Particles::setup(glm::vec2 position, glm::vec2 acceleration) {
 //    closeText->setFillColor(ci::Color::white()) ;
     closeText->setTexture(closeIconTexture) ;
 //    closeText->setAlignment(po::scene::Alignment::CENTER_CENTER) ;
-    closeText->setDrawBounds(true) ;
+//    closeText->setDrawBounds(true) ;
     closeText->setPosition(glm::vec2(ci::app::getWindowCenter().x+227.5, ci::app::getWindowCenter().y-175)) ;
     
     swirlingButtonEx = po::scene::Shape::createRect(100.f,100.f) ;
@@ -159,6 +166,15 @@ void Patch_Particles::onMouseEvent(po::scene::MouseEvent &event)
                 if(event.getWindowPos().x >= mPatches[i]->getPosition().x-50 && event.getWindowPos().x <= mPatches[i]->getPosition().x+50 && event.getWindowPos().y >= mPatches[i]->getPosition().y && event.getWindowPos().y <= mPatches[i]->getPosition().y+100) {
                     //                    std::cout << "I hit a patch!" << std::endl ;
                     displayPatch->setTexture(mPatchesTexture[i]) ;
+                    if(i <= 6) {
+                        displayText->setTexture(denimText) ;
+                    } else if(i > 6 && i <= 12) {
+                        displayText->setTexture(linenText) ;
+                    } else if(i > 12 && i <= 18) {
+                        displayText->setTexture(woolText) ;
+                    } else if(i > 18 && i <= 24) {
+                        displayText->setTexture(silkText) ;
+                    }
                     ci::app::timeline().apply(&displayPatch->getAlphaAnim(), 1.f, 2.f, ci::EaseOutExpo()) ;
                     ci::app::timeline().apply(&displayText->getAlphaAnim(), 1.f, 2.f, ci::EaseOutExpo()) ;
                     ci::app::timeline().apply(&closeText->getAlphaAnim(), 1.f, 2.f, ci::EaseOutExpo()) ;

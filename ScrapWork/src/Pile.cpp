@@ -24,7 +24,7 @@ void Pile::setup(){
     pileActive1Texture = gl::Texture::create(loadImage(loadAsset("active_pile_1.png")));
     pileActive2Texture = gl::Texture::create(loadImage(loadAsset("active_pile_2.png")));
     pileActive3Texture = gl::Texture::create(loadImage(loadAsset("active_pile_3.png")));
-    introTexture = gl::Texture::create(loadImage(loadAsset("wait_introFrame.png")));
+    introTexture = gl::Texture::create(loadImage(loadAsset("wait_introFrame_final.png")));
     
     pileWaitImage = po::scene::Image::create(pileWaitTexture);
     pileActive1Image = po::scene::Image::create(pileActive1Texture);
