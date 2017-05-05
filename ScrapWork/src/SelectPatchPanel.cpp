@@ -47,6 +47,7 @@ void SelectPatchPanel::setup(ci::gl::TextureRef textureRef)
         }
         
     }
+    
     // put patch texture into patch ref
     for (int i = 0; i < patchNum; i++) {
         
