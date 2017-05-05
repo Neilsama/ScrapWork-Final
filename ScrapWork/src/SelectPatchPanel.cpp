@@ -57,13 +57,13 @@ void SelectPatchPanel::setup(ci::gl::TextureRef textureRef)
     
         //append to select Panel
         if (i < 6)
-            mPatches[i]->setPosition(ci::vec2(182 + 78*i, 40));
+            mPatches[i]->setPosition(ci::vec2(182 + 78*i, 60));
         else if (i >= 6 && i < 12)
-            mPatches[i]->setPosition(ci::vec2(205 + 78*i, 40));
+            mPatches[i]->setPosition(ci::vec2(205 + 78*i, 60));
         else if (i >= 12 && i< 18)
-            mPatches[i]->setPosition(ci::vec2(182 + 78*(i-12),113));
+            mPatches[i]->setPosition(ci::vec2(182 + 78*(i-12),133));
         else
-            mPatches[i]->setPosition(ci::vec2(205 + 78*(i-12),113));
+            mPatches[i]->setPosition(ci::vec2(205 + 78*(i-12),133));
         
         addChild(mPatches[i]);
     }

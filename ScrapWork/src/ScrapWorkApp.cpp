@@ -73,14 +73,13 @@ public:
 
 void ScrapWorkApp::setup()
 {
-//    ci::app::setWindowSize(1280.f, 800.f);
-    ci::app::setFullScreen();
+    ci::app::setWindowSize(1280.f, 1024.f);
+    //ci::app::setFullScreen();
     
     mCounter = 0 ;
     mainContainer = po::scene::NodeContainer::create();
     mScence = po::scene::Scene::create(mainContainer);
-//    mainContainer->setScale(0.75f) ;
-    bgPImg = po::scene::Image::create(ci::gl::Texture::create(ci::loadImage(loadAsset("bg.png"))));//  create background shape and load background image
+    bgPImg = po::scene::Image::create(ci::gl::Texture::create(ci::loadImage(loadAsset("bg.jpg"))));//  create background shape and load background image
 
     mainContainer->addChild(bgPImg);
     
