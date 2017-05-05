@@ -25,6 +25,7 @@ Patch_Particles::Patch_Particles()
 void Patch_Particles::reset()
 {
     setup(mPos, mAcc);
+
 }
 
 void Patch_Particles::setup(glm::vec2 position, glm::vec2 acceleration) {
@@ -57,9 +58,9 @@ void Patch_Particles::setup(glm::vec2 position, glm::vec2 acceleration) {
         mPatches.push_back(ref);
         
         //add Random position for patch
-        mPos = glm::vec2(ci::randFloat(ci::app::getWindowCenter().x + 200, ci::app::getWindowCenter().x - 200), -100) ;
+        mPos = glm::vec2(ci::randFloat(ci::app::getWindowCenter().x + 300, ci::app::getWindowCenter().x - 300), -100) ;
         mPositions.push_back(mPos) ;
-        mRandForces.push_back(glm::vec2(0, ci::randFloat(0.01,0.1))) ;
+        mRandForces.push_back(glm::vec2(0, ci::randFloat(0.01,0.05))) ;
         mPatches[i]->setPosition(mPos) ;
         mPatches[i]->setAlignment(po::scene::Alignment::TOP_CENTER) ;
         
@@ -100,11 +101,11 @@ void Patch_Particles::setup(glm::vec2 position, glm::vec2 acceleration) {
 //    closeText->setDrawBounds(true) ;
     closeText->setPosition(glm::vec2(ci::app::getWindowCenter().x+227.5, ci::app::getWindowCenter().y-175)) ;
     
-    swirlingButtonEx = po::scene::Shape::createRect(100.f,100.f) ;
-    addChild(swirlingButtonEx) ;
-    swirlingButtonEx->setFillColor(ci::Color (1.f,0,0)) ;
-    swirlingButtonEx->setAlignment(po::scene::Alignment::TOP_CENTER) ;
-    swirlingButtonEx->setPosition(glm::vec2(ci::app::getWindowCenter().x, ci::app::getWindowCenter().y+300)) ;
+//    swirlingButtonEx = po::scene::Shape::createRect(100.f,100.f) ;
+//    addChild(swirlingButtonEx) ;
+//    swirlingButtonEx->setFillColor(ci::Color (1.f,0,0)) ;
+//    swirlingButtonEx->setAlignment(po::scene::Alignment::TOP_CENTER) ;
+//    swirlingButtonEx->setPosition(glm::vec2(ci::app::getWindowCenter().x, ci::app::getWindowCenter().y+300)) ;
     
     getSignal(po::scene::MouseEvent::DOWN_INSIDE).connect(std::bind(&Patch_Particles::onMouseEvent, this, std::placeholders::_1)) ;
     
@@ -185,18 +186,18 @@ void Patch_Particles::onMouseEvent(po::scene::MouseEvent &event)
                 ci::app::timeline().apply(&displayText->getAlphaAnim(), 0.f, 2.f, ci::EaseOutExpo()) ;
                 ci::app::timeline().apply(&closeText->getAlphaAnim(), 0.f, 2.f, ci::EaseOutExpo()) ;
             }
-            if(event.getWindowPos().x >= swirlingButtonEx->getPosition().x-50 && event.getWindowPos().x <= swirlingButtonEx->getPosition().x+50 && event.getWindowPos().y >= swirlingButtonEx->getPosition().y && event.getWindowPos().y <= swirlingButtonEx->getPosition().y+100) {
-                std::cout << "Time to SWIRL!" << std::endl ;
-                //                for(int i = 0 ; i < 24 ; i++) {
-                ////                    ci::app::timeline().apply(&mPatches[i]->getPositionAnim(), glm::vec2(ci::app::getWindowCenter(), 2.f)) ;
-                ////                    ci::app::timeline().apply(&mPatches[i]->getPositionAnim(), 1.f, 2.f, ci::EaseOutExpo()) ;
-                //                }
-                swirl() ;
-                ci::app::timeline().apply(&displayPatch->getAlphaAnim(), 0.f, 2.f, ci::EaseOutExpo()) ;
-                ci::app::timeline().apply(&displayText->getAlphaAnim(), 0.f, 2.f, ci::EaseOutExpo()) ;
-                ci::app::timeline().apply(&closeText->getAlphaAnim(), 0.f, 2.f, ci::EaseOutExpo()) ;
-                ci::app::timeline().apply(&swirlingButtonEx->getAlphaAnim(), 0.f, 2.f, ci::EaseOutExpo()) ;
-            }
+//            if(event.getWindowPos().x >= swirlingButtonEx->getPosition().x-50 && event.getWindowPos().x <= swirlingButtonEx->getPosition().x+50 && event.getWindowPos().y >= swirlingButtonEx->getPosition().y && event.getWindowPos().y <= swirlingButtonEx->getPosition().y+100) {
+//                std::cout << "Time to SWIRL!" << std::endl ;
+//                //                for(int i = 0 ; i < 24 ; i++) {
+//                ////                    ci::app::timeline().apply(&mPatches[i]->getPositionAnim(), glm::vec2(ci::app::getWindowCenter(), 2.f)) ;
+//                ////                    ci::app::timeline().apply(&mPatches[i]->getPositionAnim(), 1.f, 2.f, ci::EaseOutExpo()) ;
+//                //                }
+//                swirl() ;
+//                ci::app::timeline().apply(&displayPatch->getAlphaAnim(), 0.f, 2.f, ci::EaseOutExpo()) ;
+//                ci::app::timeline().apply(&displayText->getAlphaAnim(), 0.f, 2.f, ci::EaseOutExpo()) ;
+//                ci::app::timeline().apply(&closeText->getAlphaAnim(), 0.f, 2.f, ci::EaseOutExpo()) ;
+//                ci::app::timeline().apply(&swirlingButtonEx->getAlphaAnim(), 0.f, 2.f, ci::EaseOutExpo()) ;
+//            }
             break ;
         default:
             break ;
