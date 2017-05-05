@@ -143,7 +143,7 @@ void ScrapWorkApp::generateNewPatch(int number)
     activeContainer->addChild(newPatch);
     
     newPatch->getIsInCavasSignal().connect(std::bind(&ScrapWorkApp::showOnCanvas, this,std::placeholders::_1));
-
+    
 }
 
 void ScrapWorkApp::showOnCanvas(bool state)
