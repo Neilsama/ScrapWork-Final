@@ -131,7 +131,6 @@ void ScrapWorkApp::setup()
 //  when clicked the patch, it will generate a new patch
 void ScrapWorkApp::generateNewPatch(int number)
 {
-    cout<<"generate a new patch"<<endl;
     newPatch = Patch::create(mSelectPatchPanel->getPatch(number)->getTexture());
     ci::app::timeline().apply(&newPatch->getPositionAnim(), mSelectPatchPanel->getPatch(number)->getPosition(), mSelectPatchPanel->getPatch(number)->getPosition()-ci::vec2(-10), 0.2f, EaseInAtan());
     ci::app::timeline().apply(&newPatch->getAlphaAnim(), 0.f, 1.f, 0.2f, EaseInAtan());

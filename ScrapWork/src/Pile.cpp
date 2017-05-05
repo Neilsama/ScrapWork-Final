@@ -21,7 +21,7 @@ void Pile::reset()
 }
 
 void Pile::setup(){
-    
+
     //pile img
     pileWaitTexture = gl::Texture::create(loadImage(loadAsset("wait_pile.png")));
     pileActive1Texture = gl::Texture::create(loadImage(loadAsset("active_pile_1.png")));
@@ -65,6 +65,7 @@ void Pile::setup(){
     addChild(pileActive3Image);
     
     getSignal(po::scene::MouseEvent::DOWN_INSIDE).connect(std::bind(&Pile::mousedown, this, std::placeholders::_1));
+    
     cout<<"connect inner signal in pile"<<endl;
 }
 
