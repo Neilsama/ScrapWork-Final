@@ -26,10 +26,13 @@ void Patch_Particles::reset()
 {
     setup(mPos, mAcc);
     notSwirling = true ;
-    doOnce = true ;
+//    doOnce = true ;
     noClick = false ;
+//    for(int i = 0 ; i < 24 ; i++) {
+//        mRandForces.push_back(glm::vec2(0, ci::randFloat(0.01,0.05))) ;
+//    }
     for(int i = 0 ; i < 24 ; i++) {
-        mRandForces.push_back(glm::vec2(0, ci::randFloat(0.01,0.05))) ;
+        mVel += mRandForces[i] ;
     }
 
 }
@@ -128,22 +131,23 @@ void Patch_Particles::update()
             mPositions[i] += mVel ;
             mPatches[i]->setPosition(mPositions[i]) ;
             if(mPatches[i]->getPosition().y > 1000) {
-                mPositions[i] = glm::vec2(ci::randFloat(ci::app::getWindowCenter().x + 200, ci::app::getWindowCenter().x - 200), -100) ;
+                mPositions[i] = glm::vec2(ci::randFloat(ci::app::getWindowCenter().x + 300, ci::app::getWindowCenter().x - 300), -100) ;
                 mPatches[i]->setPosition(mPositions[i]) ;
             }
+//            cout << mRandForces[i] << endl ;
         }
     }
     else {
-        if(doOnce == true) {
-            for(int i = 0 ; i < 22 ; i++) {
-                mPatches[i]->setPosition(glm::vec2(ci::app::getWindowCenter().x, ci::app::getWindowCenter().y+300)) ;
-                mVel = glm::vec2(0) ;
-                mRandForces[i] = glm::vec2(0) ;
-            }
-            doOnce = false ;
-            mPatches[23]->setPosition(glm::vec2(ci::app::getWindowWidth()+100, ci::app::getWindowHeight()+100)) ;
-            mPatches[22]->setPosition(glm::vec2(ci::app::getWindowWidth()+100, ci::app::getWindowHeight()+100)) ;
-        }
+//        if(doOnce == true) {
+//            for(int i = 0 ; i < 22 ; i++) {
+//                mPatches[i]->setPosition(glm::vec2(ci::app::getWindowCenter().x, ci::app::getWindowCenter().y+300)) ;
+//                mVel = glm::vec2(0) ;
+//                mRandForces[i] = glm::vec2(0) ;
+//            }
+//            doOnce = false ;
+//            mPatches[23]->setPosition(glm::vec2(ci::app::getWindowWidth()+100, ci::app::getWindowHeight()+100)) ;
+//            mPatches[22]->setPosition(glm::vec2(ci::app::getWindowWidth()+100, ci::app::getWindowHeight()+100)) ;
+//        }
         float basicA = getElapsedFrames()*0.01f;
         for(int i = 0 ; i < 22 ; i++) {
             float angle = basicA + i * 2 ;
@@ -152,6 +156,8 @@ void Patch_Particles::update()
             float y = sin(angle)*350 + ci::app::getWindowCenter().y;
             mPatches[i]->setPosition(glm::vec2(x,y)) ;
         }
+        mPatches[23]->setPosition(glm::vec2(ci::app::getWindowWidth()+100, ci::app::getWindowHeight()+100)) ;
+        mPatches[22]->setPosition(glm::vec2(ci::app::getWindowWidth()+100, ci::app::getWindowHeight()+100)) ;
     }
     
 }
@@ -162,6 +168,7 @@ void Patch_Particles::addForce()
     for(int i = 0 ; i < 24 ; i++) {
         mVel += mRandForces[i] ;
     }
+    cout << "mVel is " ;
     cout << mVel << endl ;
     
 }
