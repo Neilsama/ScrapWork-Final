@@ -21,7 +21,7 @@ void Pile::reset()
 }
 
 void Pile::setup(){
-
+    
     //pile img
     pileWaitTexture = gl::Texture::create(loadImage(loadAsset("wait_pile.png")));
     pileActive1Texture = gl::Texture::create(loadImage(loadAsset("active_pile_1.png")));
@@ -34,7 +34,7 @@ void Pile::setup(){
     pileActive2Image = po::scene::Image::create(pileActive2Texture);
     pileActive3Image = po::scene::Image::create(pileActive3Texture);
     introImage = po::scene::Image::create(introTexture);
-
+    
     
     pileWaitImage->setAlignment(po::scene::Alignment::BOTTOM_CENTER);
     pileWaitImage->setPosition(ci::vec2(ci::app::getWindowWidth()/2, ci::app::getWindowHeight()));
@@ -64,8 +64,10 @@ void Pile::setup(){
     addChild(pileActive2Image);
     addChild(pileActive3Image);
     
-    getSignal(po::scene::MouseEvent::DOWN_INSIDE).connect(std::bind(&Pile::mousedown, this, std::placeholders::_1));
-    
+    if(createSignalOnce == true) {
+        getSignal(po::scene::MouseEvent::DOWN_INSIDE).connect(std::bind(&Pile::mousedown, this, std::placeholders::_1)) ;
+        createSignalOnce = false ;
+    }
     cout<<"connect inner signal in pile"<<endl;
 }
 
@@ -89,7 +91,7 @@ void Pile::mousedown( po::scene::MouseEvent &event ) {
                     && event.getWindowPos().y <= 615 && event.getWindowPos().y >= 375 )
             {
                 mChangeStatusSignal.emit(true);
-                break;            
+                break;
             }
         }
             break;

@@ -28,6 +28,7 @@ private:
     void mousedown( po::scene::MouseEvent &event );
     void pileAnimation();
     
+    bool createSignalOnce = true ;
     
     
     changeStatusSignal      mChangeStatusSignal;

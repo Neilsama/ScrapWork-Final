@@ -42,7 +42,7 @@ private:
     
     buttonClickedSignal     mButtonSignal;
     bool                    isActive;
-
+    bool                    createSignalOnce = true ;
     
     void setActiveState();
     void setNormalState();

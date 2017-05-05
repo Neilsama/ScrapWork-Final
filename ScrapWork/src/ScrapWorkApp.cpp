@@ -30,12 +30,12 @@ using namespace ci::app;
 using namespace std;
 
 class ScrapWorkApp : public App {
-
+    
 public:
     void setup() override;
     void update() override;
     void draw() override ;
-
+    
     
     void generateNewPatch(int number);
     void showOnCanvas(bool state);
@@ -63,6 +63,7 @@ public:
     buttonMenuRef                   mButtonMenu ;
     po::scene::ImageRef             mClearButton ;
     
+    int                             statusCounter = 0 ;
     
     Patch_ParticlesRef              mPatches ;
     float LIFE_SPAN = 500000 ;
@@ -80,18 +81,18 @@ void ScrapWorkApp::setup()
     mScence = po::scene::Scene::create(mainContainer);
     
     bgPImg = po::scene::Image::create(ci::gl::Texture::create(ci::loadImage(loadAsset("bg.jpg"))));//  create background shape and load background image
-
+    
     mainContainer->addChild(bgPImg);
     
     activeContainer = po::scene::NodeContainer::create();//  create boss container
     //activeContainer->setAlpha(0.f);
     activeContainer->setVisible(false);
     waitContainer = po::scene::NodeContainer::create();
-
+    
     mainContainer->addChild(activeContainer);
     mainContainer->addChild(waitContainer);
     
-//    activeContainer->setVisible(false);
+    //    activeContainer->setVisible(false);
     
     
     // set up wait container
@@ -154,7 +155,7 @@ void ScrapWorkApp::showOnCanvas(bool state)
             patchesQueue.push_back(newPatch->getID());
             activeContainer->removeChild(newPatch);
             mCanvas->addChild(newPatch);
-
+            
             // newPatch
             for(int i = 0 ; i < 5 ; i++) {
                 for(int j = 0 ; j < 4 ; j++) {
@@ -171,7 +172,7 @@ void ScrapWorkApp::showOnCanvas(bool state)
                 }
             }
         }
-
+        
     }else{
         if(newPatch->getIsNew())
             activeContainer->removeChild(newPatch);
@@ -185,7 +186,8 @@ void ScrapWorkApp::showOnCanvas(bool state)
 //  waiting page another one is pile introframe to change to active page
 void ScrapWorkApp::ChangeStatus(bool state)
 {
-    cout<<"Change status function is called in main"<<endl;
+//    cout<<"clicked"<<endl;
+    statusCounter++ ;
     
     if (state) {
         if (waitContainer->isVisible()) {
@@ -198,24 +200,28 @@ void ScrapWorkApp::ChangeStatus(bool state)
             mPreviewPanel->reset();
             
             mPreviewPanel->getButton()->getbuttonClickedSignal().connect(std::bind(&ScrapWorkApp::ChangeStatus, this, std::placeholders::_1));
-
+            
             activeContainer->setVisible(true);
-            cout<<"Change status function is called for activestate"<<endl;
+//            cout<<"Change status 1 - to active"<<endl;
         }
-        else 
+        else
         {
             activeContainer->setVisible(false);
             mPile->removeAllChildren();
             mPile->reset();
-            cout<<"why?????"<<endl;
+//            cout << waitContainer->getNumChildren() << endl ;;
             mPatches->removeAllChildren();
             mPatches->reset();
             waitContainer->setVisible(true);
-            cout<<"Change status function is called for wait"<<endl;
+//            cout<<"Change status 2 - to wait"<<endl;
         }
     }
-    else
+    else {
         mPatches->swirl();
+//        cout << "Change status 3 - to intro Frame" << endl ;
+    }
+    
+//    cout << statusCounter << endl ;
 }
 
 
