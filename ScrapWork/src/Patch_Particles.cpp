@@ -168,8 +168,8 @@ void Patch_Particles::addForce()
     for(int i = 0 ; i < 24 ; i++) {
         mVel += mRandForces[i] ;
     }
-//    cout << "mVel is " ;
-//    cout << mVel << endl ;
+    //    cout << "mVel is " ;
+    //    cout << mVel << endl ;
     
 }
 
