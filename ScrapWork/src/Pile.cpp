@@ -16,6 +16,8 @@ Pile::Pile()
 void Pile::reset()
 {
     setup();
+    
+    
 }
 
 void Pile::setup(){
