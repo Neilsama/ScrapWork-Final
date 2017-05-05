@@ -205,11 +205,11 @@ void ScrapWorkApp::ChangeStatus(bool state)
         {
 
             activeContainer->setVisible(false);
-            activeContainer->setAlpha(0.f);
+            //activeContainer->setAlpha(0.f);
             mPile->removeAllChildren();
             mPile->reset();
-            
             mPile->getChangeStatusSigal().connect(std::bind(&ScrapWorkApp::ChangeStatus, this,std::placeholders::_1));
+            cout<<"why?????"<<endl;
             mPatches->removeAllChildren();
             mPatches->reset();
             waitContainer->setVisible(true);

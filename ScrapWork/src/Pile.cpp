@@ -88,7 +88,6 @@ void Pile::mousedown( po::scene::MouseEvent &event ) {
             else if(event.getWindowPos().x >= 380 && event.getWindowPos().x<= 900
                     && event.getWindowPos().y <= 615 && event.getWindowPos().y >= 375 )
             {
-                cout<<"got: "<<event.getScenePos()<<endl;
                 mChangeStatusSignal.emit(true);
                 break;            
             }
