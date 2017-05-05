@@ -168,9 +168,7 @@ void Patch_Particles::addForce()
     for(int i = 0 ; i < 24 ; i++) {
         mVel += mRandForces[i] ;
     }
-    //    cout << "mVel is " ;
-    //    cout << mVel << endl ;
-    
+
 }
 
 void Patch_Particles::onMouseEvent(po::scene::MouseEvent &event)
