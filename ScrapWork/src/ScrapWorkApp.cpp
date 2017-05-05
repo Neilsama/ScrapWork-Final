@@ -158,7 +158,7 @@ void ScrapWorkApp::showOnCanvas(bool state)
             for(int i = 0 ; i < 5 ; i++) {
                 for(int j = 0 ; j < 4 ; j++) {
                     if(getMousePos().x >= (428+100*i) && getMousePos().x <= (528+100*i)
-                       && getMousePos().y >= (297+100*j) && getMousePos().y <= (397+100*j)) {
+                       && getMousePos().y >= (337+100*j) && getMousePos().y <= (437+100*j)) {
                         mCanvas->setTexture(newPatch->getTexture(), mCounter) ;
                         mPreviewPanel->getPatches(newPatch->getTexture(), mCounter) ;
                         mCanvas->removeChild(newPatch) ;
