@@ -36,6 +36,8 @@ public:
 private:
     PreviewPanel();
     void  setup(ci::gl::TextureRef   frameTexture);
+    
+    ci::vec2                mPos;
     ci::gl::TextureRef      mFrameTexture;
     po::scene::ImageRef     mPFrameImg;
     po::scene::ShapeRef     mRect;

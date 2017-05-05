@@ -19,6 +19,7 @@ SelectPatchPanelRef SelectPatchPanel::create(ci::gl::TextureRef textureRef)
 }
 
 SelectPatchPanel::SelectPatchPanel()
+:mPos(ci::vec2(0.f, 20.f))
 {}
 
 void SelectPatchPanel::reset()
@@ -28,8 +29,10 @@ void SelectPatchPanel::reset()
 
 void SelectPatchPanel::setup(ci::gl::TextureRef textureRef)
 {
+    
     mGridTexture = textureRef;
     mPGridImg = po::scene::Image::create(mGridTexture);
+    mPGridImg->setPosition(mPos);
     addChild(mPGridImg);
     
     patchNum = 24;
