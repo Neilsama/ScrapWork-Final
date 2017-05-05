@@ -35,7 +35,10 @@ void button::setup(ci::gl::TextureRef buttonNormalTexture, ci::gl::TextureRef bu
     
     isActive = false;
     
+    if(createSignalOnce == true) {
     getSignal(po::scene::MouseEvent::DOWN_INSIDE).connect(std::bind(&button::onMouseEvent, this, std::placeholders::_1));
+        createSignalOnce = false ;
+    }
     
     addChild(mPButtonNormalImg);
     addChild(mPButtonActiveImg);
