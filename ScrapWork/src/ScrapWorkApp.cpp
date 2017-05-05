@@ -74,23 +74,24 @@ public:
 void ScrapWorkApp::setup()
 {
     ci::app::setWindowSize(1280.f, 1024.f);
-    //ci::app::setFullScreen();
     
     mCounter = 0 ;
     mainContainer = po::scene::NodeContainer::create();
     mScence = po::scene::Scene::create(mainContainer);
-//    mainContainer->setScale(0.75f) ;
+    
     bgPImg = po::scene::Image::create(ci::gl::Texture::create(ci::loadImage(loadAsset("bg.jpg"))));//  create background shape and load background image
 
     mainContainer->addChild(bgPImg);
     
     activeContainer = po::scene::NodeContainer::create();//  create boss container
+    //activeContainer->setAlpha(0.f);
+    activeContainer->setVisible(false);
     waitContainer = po::scene::NodeContainer::create();
 
     mainContainer->addChild(activeContainer);
     mainContainer->addChild(waitContainer);
     
-    activeContainer->setVisible(false);
+//    activeContainer->setVisible(false);
     
     
     // set up wait container
@@ -100,10 +101,6 @@ void ScrapWorkApp::setup()
     
     mPile = Pile::create();
     waitContainer->addChild(mPile);
-    
-//    for(int i = 0 ; i < 24 ; i++) {
-//        randomForces.push_back(glm::vec2(0, ci::randFloat(.1,.5))) ;
-//    }
     
     
     // set up active container
@@ -130,9 +127,10 @@ void ScrapWorkApp::setup()
     mPreviewPanel->getButton()->getbuttonClickedSignal().connect(std::bind(&ScrapWorkApp::ChangeStatus, this, std::placeholders::_1));
 }
 
+
+//  when clicked the patch, it will generate a new patch
 void ScrapWorkApp::generateNewPatch(int number)
 {
-    cout<<"generate a new patch"<<endl;
     newPatch = Patch::create(mSelectPatchPanel->getPatch(number)->getTexture());
     ci::app::timeline().apply(&newPatch->getPositionAnim(), mSelectPatchPanel->getPatch(number)->getPosition(), mSelectPatchPanel->getPatch(number)->getPosition()-ci::vec2(-10), 0.2f, EaseInAtan());
     ci::app::timeline().apply(&newPatch->getAlphaAnim(), 0.f, 1.f, 0.2f, EaseInAtan());
@@ -146,6 +144,9 @@ void ScrapWorkApp::generateNewPatch(int number)
     
 }
 
+//  the function that show all the patches on the canvas. The patch will
+//  stick to invisible grid automatically.
+//  every
 void ScrapWorkApp::showOnCanvas(bool state)
 {
     if (state) {
@@ -153,8 +154,7 @@ void ScrapWorkApp::showOnCanvas(bool state)
             patchesQueue.push_back(newPatch->getID());
             activeContainer->removeChild(newPatch);
             mCanvas->addChild(newPatch);
-            cout<<"add a new patch:"<<newPatch->getID()<<endl;
-            cout<<" now the size of patch queue is: "<<patchesQueue.size()<<endl;
+
             // newPatch
             for(int i = 0 ; i < 5 ; i++) {
                 for(int j = 0 ; j < 4 ; j++) {
@@ -180,26 +180,37 @@ void ScrapWorkApp::showOnCanvas(bool state)
     }
 }
 
+//  change application's status of waiting status and active status
+//  connected to the signal of tow button triggers, one is save button signal "buttonClickedSignal" to change to
+//  waiting page another one is pile introframe to change to active page
 void ScrapWorkApp::ChangeStatus(bool state)
 {
-    cout<<"activeContainer is visible? "<<activeContainer->isVisible()<<endl;
-    cout<<"waitContainer is visible? "<<waitContainer->isVisible()<<endl;
+
     if (state) {
         if (waitContainer->isVisible()) {
             waitContainer->setVisible(false);
+            mSelectPatchPanel->removeAllChildren();
             mSelectPatchPanel->reset();
+            mCanvas->removeAllChildren();
             mCanvas->reset();
+            mPreviewPanel->removeAllChildren();
             mPreviewPanel->reset();
+            
             mPreviewPanel->getButton()->getbuttonClickedSignal().connect(std::bind(&ScrapWorkApp::ChangeStatus, this, std::placeholders::_1));
+
             activeContainer->setVisible(true);
-            cout<<"already set active container true"<<endl;
+
         }
         else 
         {
-            cout<<"here"<<endl;
+
             activeContainer->setVisible(false);
-            
+            activeContainer->setAlpha(0.f);
+            mPile->removeAllChildren();
             mPile->reset();
+            
+            mPile->getChangeStatusSigal().connect(std::bind(&ScrapWorkApp::ChangeStatus, this,std::placeholders::_1));
+            mPatches->removeAllChildren();
             mPatches->reset();
             waitContainer->setVisible(true);
         }

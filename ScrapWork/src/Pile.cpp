@@ -21,7 +21,7 @@ void Pile::reset()
 }
 
 void Pile::setup(){
-    
+
     //pile img
     pileWaitTexture = gl::Texture::create(loadImage(loadAsset("wait_pile.png")));
     pileActive1Texture = gl::Texture::create(loadImage(loadAsset("active_pile_1.png")));
@@ -65,6 +65,8 @@ void Pile::setup(){
     addChild(pileActive3Image);
     
     getSignal(po::scene::MouseEvent::DOWN_INSIDE).connect(std::bind(&Pile::mousedown, this, std::placeholders::_1));
+    
+    cout<<"connect inner signal in pile"<<endl;
 }
 
 void Pile::update(){
@@ -74,31 +76,30 @@ void Pile::update(){
 
 void Pile::mousedown( po::scene::MouseEvent &event ) {
     switch (event.getType()) {
-                    case po::scene::MouseEvent::DOWN_INSIDE:
             
+        case po::scene::MouseEvent::DOWN_INSIDE:
+        {
             if (event.getWindowPos().x >= pileActive3Image->getPosition().x-400 && event.getWindowPos().x <= pileActive3Image->getPosition().x+400 && event.getWindowPos().y >= pileActive3Image->getPosition().y-200 && event.getWindowPos().y <= pileActive3Image->getPosition().y)
             {
                 pileAnimation();
                 mChangeStatusSignal.emit(false);
-                
+                break;
             }
             else if(event.getWindowPos().x >= 380 && event.getWindowPos().x<= 900
                     && event.getWindowPos().y <= 615 && event.getWindowPos().y >= 375 )
             {
                 cout<<"got: "<<event.getScenePos()<<endl;
                 mChangeStatusSignal.emit(true);
-                
-                //pile go down
-//                
-//                ci::vec2 moveStartPos = ci::vec2(ci::app::getWindowWidth()/2, ci::app::getWindowHeight());
-//                ci::app::timeline().apply(&introImage->getPositionAnim(), moveStartPos, 0.1f);
-//                introImage->setAlpha(0.f);
-            
+                break;            
             }
+        }
             break;
+            
+            
         default:
             break;
     }
+    
 }
 
 
