@@ -100,9 +100,9 @@ void ScrapWorkApp::setup()
     mPile = Pile::create();
     waitContainer->addChild(mPile);
     
-    for(int i = 0 ; i < 24 ; i++) {
-        randomForces.push_back(glm::vec2(0, ci::randFloat(1,2))) ;
-    }
+//    for(int i = 0 ; i < 24 ; i++) {
+//        randomForces.push_back(glm::vec2(0, ci::randFloat(.1,.5))) ;
+//    }
     
     
     // set up active container
