@@ -185,7 +185,8 @@ void ScrapWorkApp::showOnCanvas(bool state)
 //  waiting page another one is pile introframe to change to active page
 void ScrapWorkApp::ChangeStatus(bool state)
 {
-
+    cout<<"Change status function is called in main"<<endl;
+    
     if (state) {
         if (waitContainer->isVisible()) {
             waitContainer->setVisible(false);
@@ -199,20 +200,18 @@ void ScrapWorkApp::ChangeStatus(bool state)
             mPreviewPanel->getButton()->getbuttonClickedSignal().connect(std::bind(&ScrapWorkApp::ChangeStatus, this, std::placeholders::_1));
 
             activeContainer->setVisible(true);
-
+            cout<<"Change status function is called for activestate"<<endl;
         }
         else 
         {
-
             activeContainer->setVisible(false);
-            //activeContainer->setAlpha(0.f);
             mPile->removeAllChildren();
             mPile->reset();
-            mPile->getChangeStatusSigal().connect(std::bind(&ScrapWorkApp::ChangeStatus, this,std::placeholders::_1));
             cout<<"why?????"<<endl;
             mPatches->removeAllChildren();
             mPatches->reset();
             waitContainer->setVisible(true);
+            cout<<"Change status function is called for wait"<<endl;
         }
     }
     else
