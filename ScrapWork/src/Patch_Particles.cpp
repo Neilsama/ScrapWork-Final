@@ -25,6 +25,12 @@ Patch_Particles::Patch_Particles()
 void Patch_Particles::reset()
 {
     setup(mPos, mAcc);
+    notSwirling = true ;
+    doOnce = true ;
+    noClick = false ;
+    for(int i = 0 ; i < 24 ; i++) {
+        mRandForces.push_back(glm::vec2(0, ci::randFloat(0.01,0.05))) ;
+    }
 
 }
 
@@ -34,6 +40,7 @@ void Patch_Particles::setup(glm::vec2 position, glm::vec2 acceleration) {
     mAcc = acceleration ;
     mVel += mAcc;
     notSwirling = true ;
+    noClick = false ;
     
     for (int i = 0; i < 24; i++) {
         
@@ -128,15 +135,17 @@ void Patch_Particles::update()
     }
     else {
         if(doOnce == true) {
-            for(int i = 0 ; i < 24 ; i++) {
+            for(int i = 0 ; i < 22 ; i++) {
                 mPatches[i]->setPosition(glm::vec2(ci::app::getWindowCenter().x, ci::app::getWindowCenter().y+300)) ;
                 mVel = glm::vec2(0) ;
                 mRandForces[i] = glm::vec2(0) ;
             }
             doOnce = false ;
+            mPatches[23]->setPosition(glm::vec2(ci::app::getWindowWidth()+100, ci::app::getWindowHeight()+100)) ;
+            mPatches[22]->setPosition(glm::vec2(ci::app::getWindowWidth()+100, ci::app::getWindowHeight()+100)) ;
         }
         float basicA = getElapsedFrames()*0.01f;
-        for(int i = 0 ; i < 24 ; i++) {
+        for(int i = 0 ; i < 22 ; i++) {
             float angle = basicA + i * 2 ;
             float x = cos(angle)*350 + ci::app::getWindowCenter().x;
 
@@ -153,6 +162,7 @@ void Patch_Particles::addForce()
     for(int i = 0 ; i < 24 ; i++) {
         mVel += mRandForces[i] ;
     }
+    cout << mVel << endl ;
     
 }
 
@@ -161,7 +171,7 @@ void Patch_Particles::onMouseEvent(po::scene::MouseEvent &event)
     switch(event.getType()) {
         case po::scene::MouseEvent::DOWN_INSIDE:
             //  mIsActivated = !mIsActivated ;
-            
+            if(noClick == false) {
             for(int i = 0 ; i < 24 ; i++) {
                 if(event.getWindowPos().x >= mPatches[i]->getPosition().x-50 && event.getWindowPos().x <= mPatches[i]->getPosition().x+50 && event.getWindowPos().y >= mPatches[i]->getPosition().y && event.getWindowPos().y <= mPatches[i]->getPosition().y+100) {
                     displayPatch->setTexture(mPatchesTexture[i]) ;
@@ -198,6 +208,7 @@ void Patch_Particles::onMouseEvent(po::scene::MouseEvent &event)
 //                ci::app::timeline().apply(&closeText->getAlphaAnim(), 0.f, 2.f, ci::EaseOutExpo()) ;
 //                ci::app::timeline().apply(&swirlingButtonEx->getAlphaAnim(), 0.f, 2.f, ci::EaseOutExpo()) ;
 //            }
+            }
             break ;
         default:
             break ;
@@ -208,6 +219,7 @@ void Patch_Particles::swirl()
 {
     notSwirling = false ;
     doOnce = true ;
+    noClick = true ;
 }
 
 

@@ -41,6 +41,7 @@ private:
     bool                mIsActivated ;
     bool                notSwirling ;
     bool                doOnce ;
+    bool                noClick ;
     
     float               mSwirl ;
     
