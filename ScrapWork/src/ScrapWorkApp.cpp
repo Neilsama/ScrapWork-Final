@@ -79,6 +79,7 @@ void ScrapWorkApp::setup()
     mCounter = 0 ;
     mainContainer = po::scene::NodeContainer::create();
     mScence = po::scene::Scene::create(mainContainer);
+//    mainContainer->setScale(0.75f) ;
     bgPImg = po::scene::Image::create(ci::gl::Texture::create(ci::loadImage(loadAsset("bg.jpg"))));//  create background shape and load background image
 
     mainContainer->addChild(bgPImg);

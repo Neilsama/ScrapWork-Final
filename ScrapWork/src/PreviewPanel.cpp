@@ -20,7 +20,9 @@ PreviewPanelRef PreviewPanel::create(ci::gl::TextureRef frameTexture)
     return ref;
 }
 
-PreviewPanel::PreviewPanel(){}
+PreviewPanel::PreviewPanel()
+:mPos(ci::vec2(0.f, 20.f))
+{}
 
 void PreviewPanel::reset()
 {
@@ -32,16 +34,16 @@ void PreviewPanel::setup(ci::gl::TextureRef frameTexture)
     // load preview panel frame picture
     mFrameTexture = frameTexture;
     mPFrameImg = po::scene::Image::create(frameTexture);
-    mPFrameImg->setPosition(ci::vec2(0, 180));
+    mPFrameImg->setPosition(ci::vec2(0, 220));
     
     //  add bag outline
     mRect = po::scene::Shape::createRect(220, 176);
     mRect->setStrokeEnabled(true);
     mRect->setStrokeColor(ci::Color::hex(0xfefefe));
-    mRect->setPosition(ci::vec2(97, 434));
+    mRect->setPosition(ci::vec2(97, 474));
     
     btnSave = button::create(ci::gl::Texture::create(loadImage(loadAsset("btn_save.png"))),ci::gl::Texture::create(loadImage(loadAsset("btn_save_active.png"))));
-    btnSave->setPosition(ci::vec2(54,650));
+    btnSave->setPosition(ci::vec2(54,690));
     
     
     addChild(mPFrameImg);
@@ -51,7 +53,7 @@ void PreviewPanel::setup(ci::gl::TextureRef frameTexture)
     for(int i = 0 ; i < 5 ; i++) {
         for(int j = 0 ; j < 4 ; j++) {
             mPrevPatch.push_back(po::scene::Shape::createRect(44.f,44.f)) ;
-            mPrevPatch[mCounter]->setPosition(97+44*i, 434+44*j) ;
+            mPrevPatch[mCounter]->setPosition(97+44*i, 474+44*j) ;
 
             mPrevPatch[mCounter]->setAlpha(0.f) ;
             addChild(mPrevPatch[mCounter]) ;

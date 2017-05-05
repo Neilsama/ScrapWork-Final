@@ -34,7 +34,7 @@ void Canvas::setup(ci::gl::TextureRef   canvasTexture)
     for(int i = 0 ; i < 5 ; i++) {
         for(int j = 0 ; j < 4 ; j++) {
             mPatches.push_back(po::scene::Shape::createRect(100.f,100.f)) ;
-            mPatches[mCounter]->setPosition(428+100*i, 297+100*j) ;
+            mPatches[mCounter]->setPosition(428+100*i, 337+100*j) ;
             mPatches[mCounter]->setAlpha(0.f) ;
             addChild(mPatches[mCounter]) ;
             mCounter++ ;
@@ -51,5 +51,5 @@ void Canvas::setTexture(ci::gl::TextureRef mTex, int getCounter)
     mPatches[getCounter]->setAlpha(1.f) ;
 }
 Canvas::Canvas()
-:mPosition(ci::vec2(426.f, 295.f))
+:mPosition(ci::vec2(426.f, 335.f))
 {}

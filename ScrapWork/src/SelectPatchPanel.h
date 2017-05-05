@@ -39,6 +39,7 @@ private:
     
     ci::gl::TextureRef      mGridTexture;
     po::scene::ImageRef     mPGridImg;
+    ci::vec2                mPos;
     
     int                     patchNum;
     std::vector<PatchRef>   mPatches;
