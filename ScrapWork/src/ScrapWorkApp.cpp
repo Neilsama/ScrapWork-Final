@@ -1,5 +1,11 @@
 //Rosa was here
-
+//1280 by 1024
+//Presentation
+//Concept
+//Process
+//Highlights
+//Live Demo
+//Playtest
 
 #include "cinder/app/App.h"
 #include "cinder/app/RendererGl.h"
@@ -48,6 +54,7 @@ public:
     SelectPatchPanelRef             mSelectPatchPanel; //  select patch panel image
     PreviewPanelRef                 mPreviewPanel; //  preview panel
     CanvasRef                       mCanvas; // canvas image
+    po::scene::ShapeRef             mBlack ;
     
     
     std::vector<int>           patchesQueue; //all id of patches that already add in canvas
@@ -66,12 +73,13 @@ public:
 
 void ScrapWorkApp::setup()
 {
-    //ci::app::setWindowSize(1280.f, 800.f);
+//    ci::app::setWindowSize(1280.f, 800.f);
     ci::app::setFullScreen();
     
     mCounter = 0 ;
     mainContainer = po::scene::NodeContainer::create();
     mScence = po::scene::Scene::create(mainContainer);
+//    mainContainer->setScale(0.75f) ;
     bgPImg = po::scene::Image::create(ci::gl::Texture::create(ci::loadImage(loadAsset("bg.png"))));//  create background shape and load background image
 
     mainContainer->addChild(bgPImg);
