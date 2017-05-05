@@ -209,7 +209,7 @@ void ScrapWorkApp::ChangeStatus(bool state)
             mPile->removeAllChildren();
             mPile->reset();
             
-            mPile->getChangeStatusSigal().connect(std::bind(&ScrapWorkApp::ChangeStatus, this,std::placeholders::_1));
+//            mPile->getChangeStatusSigal().connect(std::bind(&ScrapWorkApp::ChangeStatus, this,std::placeholders::_1));
             mPatches->removeAllChildren();
             mPatches->reset();
             waitContainer->setVisible(true);
