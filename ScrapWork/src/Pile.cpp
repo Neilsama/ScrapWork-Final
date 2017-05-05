@@ -85,6 +85,13 @@ void Pile::mousedown( po::scene::MouseEvent &event ) {
             {
                 cout<<"got: "<<event.getScenePos()<<endl;
                 mChangeStatusSignal.emit(true);
+                
+                //pile go down
+                
+                ci::vec2 moveStartPos = ci::vec2(ci::app::getWindowWidth()/2, ci::app::getWindowHeight());
+                ci::app::timeline().apply(&introImage->getPositionAnim(), moveStartPos, 0.1f);
+                introImage->setAlpha(0.f);
+            
             }
             break;
         default:
@@ -96,7 +103,7 @@ void Pile::mousedown( po::scene::MouseEvent &event ) {
 void Pile::pileAnimation(){
     
     ci::app::timeline().apply(&introImage->getAlphaAnim(), 1.f, 1.f, ci::EaseInCubic()) ;
-    ci::vec2 moveEndPos = ci::vec2(640.f, 670.f);
+    ci::vec2 moveEndPos = ci::vec2(ci::app::getWindowWidth()/2, ci::app::getWindowHeight()-130.f);
     ci::app::timeline().apply(&introImage->getPositionAnim(), moveEndPos, 1.f, ci::EaseOutExpo());
     
     ci::app::timeline().apply(&pileWaitImage->getAlphaAnim(), 0.f, 0.5f, ci::EaseOutExpo()) ;
