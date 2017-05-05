@@ -26,6 +26,7 @@ public:
     void addForce() ;
     glm::vec2 getPos() {return mPos ;}
     void swirl() ;
+    void reset();
     
     
 private:
@@ -54,4 +55,9 @@ private:
     std::vector<ci::gl::TextureRef>     mPatchesTexture;
     std::vector<glm::vec2>              mRandForces ;
     std::vector<ci::gl::TextureRef>     mText ;
+    gl::TextureRef                      closeIconTexture;
+    gl::TextureRef                      woolText ;
+    gl::TextureRef                      denimText ;
+    gl::TextureRef                      silkText ;
+    gl::TextureRef                      linenText ;
 };

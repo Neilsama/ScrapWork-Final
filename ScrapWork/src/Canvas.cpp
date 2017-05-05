@@ -18,13 +18,38 @@ CanvasRef Canvas::create(ci::gl::TextureRef  canvasTexture)
     return ref;
 }
 
-void Canvas::setup(ci::gl::TextureRef   canvasTexture)
+void Canvas::reset()
 {
-    mPCanvasImg = po::scene::Image::create(canvasTexture);
-    mPCanvasImg->setPosition(mPosition);
-    addChild(mPCanvasImg);
+    setup(mCanvasTexture);
 }
 
+void Canvas::setup(ci::gl::TextureRef   canvasTexture)
+{
+    mCanvasTexture = canvasTexture;
+    mPCanvasImg = po::scene::Image::create(mCanvasTexture);
+    mPCanvasImg->setPosition(mPosition);
+    addChild(mPCanvasImg);
+    
+    
+    for(int i = 0 ; i < 5 ; i++) {
+        for(int j = 0 ; j < 4 ; j++) {
+            mPatches.push_back(po::scene::Shape::createRect(100.f,100.f)) ;
+            mPatches[mCounter]->setPosition(428+100*i, 297+100*j) ;
+            mPatches[mCounter]->setAlpha(0.f) ;
+            addChild(mPatches[mCounter]) ;
+            mCounter++ ;
+            if(i == 4 && j == 3) {
+                mCounter = 0 ;
+            }
+        }
+    }
+}
+
+void Canvas::setTexture(ci::gl::TextureRef mTex, int getCounter)
+{
+    mPatches[getCounter]->setTexture(mTex) ;
+    mPatches[getCounter]->setAlpha(1.f) ;
+}
 Canvas::Canvas()
 :mPosition(ci::vec2(426.f, 295.f))
 {}

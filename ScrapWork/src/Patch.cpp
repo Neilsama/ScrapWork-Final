@@ -35,7 +35,7 @@ void Patch::setup(ci::gl::TextureRef patchTexture)
     getSignal(po::scene::MouseEvent::DOWN_INSIDE).connect(std::bind(&Patch::onMouseEvent, this, std::placeholders::_1));
     getSignal(po::scene::MouseEvent::UP_INSIDE).connect(std::bind(&Patch::onMouseEvent, this, std::placeholders::_1));
     getSignal(po::scene::MouseEvent::DRAG_INSIDE).connect(std::bind(&Patch::onMouseEvent, this, std::placeholders::_1));
-
+    
 }
 
 
@@ -52,9 +52,7 @@ void Patch::onMouseEvent(po::scene::MouseEvent &event)
                 
             }else if (mousePos.x >= 426 && mousePos.x <= 930 && mousePos.y >= 295 && mousePos.y <= 696)
             {
-                cout<<mID<<endl;
                 isNew = false;
-                mNewPatchSignal.emit(mID);
             }
             
             break;
@@ -63,13 +61,14 @@ void Patch::onMouseEvent(po::scene::MouseEvent &event)
         case po::scene::MouseEvent::UP_INSIDE:
         {
             if (mousePos.x >= 426 && mousePos.x <= 930 && mousePos.y >= 295 && mousePos.y <= 696)
+            {
                 mIsInCanvasSignal.emit(true);
-            
-            else
+            }
+            else{
                 mIsInCanvasSignal.emit(false);
-            
+            }
             break;
-        
+            
         }
             
         case po::scene::MouseEvent::DRAG_INSIDE:
@@ -77,14 +76,13 @@ void Patch::onMouseEvent(po::scene::MouseEvent &event)
             mPPatchImg->setPosition(event.getLocalPos() - ci::vec2(25));
             break;
         }
-                
-            default:
-                break;
-        }
-
+            
+        default:
+            break;
+    }
+    
     
 }
-
 
 
 

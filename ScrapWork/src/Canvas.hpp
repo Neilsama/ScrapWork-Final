@@ -14,6 +14,7 @@
 #include "poImage.h"
 #include "cinder/Signals.h"
 #include "Patch.h"
+#include "poShape.h"
 
 
 using namespace ci;
@@ -29,6 +30,9 @@ class Canvas
     
 public:
     static CanvasRef   create(ci::gl::TextureRef   canvasTexture);
+    void setTexture(ci::gl::TextureRef mTex, int getCounter) ;
+    std::vector<po::scene::ShapeRef> sendPatches() {return mPatches ;}
+    void   reset();
     
 private:
     Canvas();
@@ -36,7 +40,9 @@ private:
     
     ci::gl::TextureRef      mCanvasTexture;
     po::scene::ImageRef     mPCanvasImg;
+    std::vector<po::scene::ShapeRef>   mPatches ;
     ci::vec2                mPosition;
+    int                     mCounter = 0 ;
     
     
 };

@@ -28,6 +28,10 @@ class PreviewPanel
 public:
     static PreviewPanelRef  create(ci::gl::TextureRef   frameTexture);
     //void update();
+    void   reset();
+    void   getPatches(ci::gl::TextureRef mTex, int getCounter) ;
+    int    mCounter ;
+    buttonRef  getButton(){return btnSave;}
     
 private:
     PreviewPanel();
@@ -35,6 +39,7 @@ private:
     ci::gl::TextureRef      mFrameTexture;
     po::scene::ImageRef     mPFrameImg;
     po::scene::ShapeRef     mRect;
+    std::vector<po::scene::ShapeRef> mPrevPatch ;
     
     buttonRef               btnSave;
 };
