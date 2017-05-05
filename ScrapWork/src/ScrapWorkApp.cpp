@@ -186,8 +186,12 @@ void ScrapWorkApp::showOnCanvas(bool state)
 //  waiting page another one is pile introframe to change to active page
 void ScrapWorkApp::ChangeStatus(bool state)
 {
+<<<<<<< Updated upstream
 //    cout<<"clicked"<<endl;
     statusCounter++ ;
+=======
+    cout<<"0"<<endl;
+>>>>>>> Stashed changes
     
     if (state) {
         if (waitContainer->isVisible()) {
@@ -202,13 +206,18 @@ void ScrapWorkApp::ChangeStatus(bool state)
             mPreviewPanel->getButton()->getbuttonClickedSignal().connect(std::bind(&ScrapWorkApp::ChangeStatus, this, std::placeholders::_1));
             
             activeContainer->setVisible(true);
+<<<<<<< Updated upstream
 //            cout<<"Change status 1 - to active"<<endl;
+=======
+            cout<<"1 "<<endl;
+>>>>>>> Stashed changes
         }
         else
         {
             activeContainer->setVisible(false);
             mPile->removeAllChildren();
             mPile->reset();
+<<<<<<< Updated upstream
 //            cout << waitContainer->getNumChildren() << endl ;;
             mPatches->removeAllChildren();
             mPatches->reset();
@@ -222,6 +231,19 @@ void ScrapWorkApp::ChangeStatus(bool state)
     }
     
 //    cout << statusCounter << endl ;
+=======
+            mPatches->removeAllChildren();
+            mPatches->reset();
+            waitContainer->setVisible(true);
+            cout<<"2"<<endl;
+        }
+    }
+    else
+    {
+        mPatches->swirl();
+        cout<<"3"<<endl;
+    }
+>>>>>>> Stashed changes
 }
 
 
