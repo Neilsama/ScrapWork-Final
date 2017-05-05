@@ -10,7 +10,8 @@ PileRef Pile::create(){
     return ref;
 }
 
-Pile::Pile(){}
+Pile::Pile()
+{}
 
 void Pile::reset()
 {
@@ -52,7 +53,6 @@ void Pile::setup(){
     introImage->setAlpha(0.f);
     introImage->setAlignment(po::scene::Alignment::BOTTOM_CENTER);
     introImage->setPosition(ci::vec2(ci::app::getWindowWidth()/2, ci::app::getWindowHeight()));
-    std::cout << getWindowWidth() ;
     introImage->setDrawBounds(false);
     
     addChild(introImage);
@@ -87,10 +87,10 @@ void Pile::mousedown( po::scene::MouseEvent &event ) {
                 mChangeStatusSignal.emit(true);
                 
                 //pile go down
-                
-                ci::vec2 moveStartPos = ci::vec2(ci::app::getWindowWidth()/2, ci::app::getWindowHeight());
-                ci::app::timeline().apply(&introImage->getPositionAnim(), moveStartPos, 0.1f);
-                introImage->setAlpha(0.f);
+//                
+//                ci::vec2 moveStartPos = ci::vec2(ci::app::getWindowWidth()/2, ci::app::getWindowHeight());
+//                ci::app::timeline().apply(&introImage->getPositionAnim(), moveStartPos, 0.1f);
+//                introImage->setAlpha(0.f);
             
             }
             break;

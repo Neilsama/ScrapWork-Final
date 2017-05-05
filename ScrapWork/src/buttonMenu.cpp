@@ -80,7 +80,7 @@ void buttonMenu::setup(){
     
     closeIconTexture = gl::Texture::create(loadImage(loadAsset("close.png")));
     closeIcon = po::scene::Image::create(closeIconTexture);
-    closeIcon ->setPosition(ci::vec2 (950.f, 200.f));
+    closeIcon ->setPosition(ci::vec2 (950.f, 235.f));
     closeIcon->setDrawBounds(false);
     closeIcon->setAlpha(0.f);
 //    addChild(closeIcon);
@@ -226,7 +226,7 @@ void buttonMenu::mouseDown( po::scene::MouseEvent &event ) {
         case po::scene::MouseEvent::DOWN_INSIDE:
             
             if (boxIsActive == true){
-                if (event.getWindowPos().x >= 950.f && event.getWindowPos().x <= 950.f+18 && event.getWindowPos().y >= 200.f  && event.getWindowPos().y <= 200.f + 18){
+                if (event.getWindowPos().x >= 950.f && event.getWindowPos().x <= 950.f+18 && event.getWindowPos().y >= 235.f  && event.getWindowPos().y <= 235.f + 18){
                     cout<<"box is closed"<<endl;
                     btn1->setToNormal();
                     btn2->setToNormal();
