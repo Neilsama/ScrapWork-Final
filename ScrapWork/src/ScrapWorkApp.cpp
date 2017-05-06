@@ -89,14 +89,14 @@ void ScrapWorkApp::setup()
     mainContainer->addChild(bgPImg);
     
     activeContainer = po::scene::NodeContainer::create();//  create boss container
-    //activeContainer->setAlpha(0.f);
-    activeContainer->setVisible(false);
+    activeContainer->setAlpha(0.f);
+
+    
     waitContainer = po::scene::NodeContainer::create();
     
     mainContainer->addChild(activeContainer);
     mainContainer->addChild(waitContainer);
-    
-    //    activeContainer->setVisible(false);
+
     
     
     // set up wait container
@@ -110,8 +110,12 @@ void ScrapWorkApp::setup()
     
     // set up active container
     mSelectPatchPanel = SelectPatchPanel::create(ci::gl::Texture::create(ci::loadImage(loadAsset("bg_selectGrid.png"))));//  create select patch panel
+    mSelectPatchPanel->setPosition(ci::vec2(0.f, -200.f));
     
     mPreviewPanel = PreviewPanel::create(ci::gl::Texture::create(ci::loadImage(loadAsset("bg_preview.png")))); //  create preview panel
+    mPreviewPanel->setPosition(ci::vec2(-220.f, 220.f));
+    
+    
     mCanvas = Canvas::create(ci::gl::Texture::create(ci::loadImage(loadAsset("bg_canvas.png")))); //  create canvas
     
     activeContainer->addChild(mSelectPatchPanel);
@@ -125,6 +129,7 @@ void ScrapWorkApp::setup()
     }
     
     mButtonMenu = buttonMenu::create() ;
+    mButtonMenu->setPosition(ci::vec2(1480.f, 0.f));
     activeContainer->addChild(mButtonMenu) ;
     
     mPile->getChangeStatusSigal().connect(std::bind(&ScrapWorkApp::ChangeStatus, this,std::placeholders::_1));
@@ -194,39 +199,54 @@ void ScrapWorkApp::ChangeStatus(bool state)
 
     
     if (state) {
-        if (waitContainer->isVisible()) {
-            waitContainer->setVisible(false);
+        if (waitContainer->getAlpha() == 1.f) {
+            
+            waitContainer->setAlpha(0.f);
+            
             mSelectPatchPanel->removeAllChildren();
             mSelectPatchPanel->reset();
+            mSelectPatchPanel->setPosition(ci::vec2(0.f, -200.f));
+            
             mCanvas->removeAllChildren();
             mCanvas->reset();
+            mCanvas->setPosition(ci::vec2(0.f, 1124.f));
+            
             mPreviewPanel->removeAllChildren();
             mPreviewPanel->reset();
+            mPreviewPanel->setPosition(ci::vec2(-320.f, 0.f));
             
             mPreviewPanel->getButton()->getbuttonClickedSignal().connect(std::bind(&ScrapWorkApp::ChangeStatus, this, std::placeholders::_1));
             
-            activeContainer->setVisible(true);
-
+            mButtonMenu->setPosition(ci::vec2(1480.f, 0.f));
+            
+            activeContainer->setAlpha(1.f);
+            
+            ci::app::timeline().apply(&mSelectPatchPanel->getPositionAnim(), mSelectPatchPanel->getPosition(), ci::vec2(0.f, 20.f), 1.f, EaseInOutBack());
+            ci::app::timeline().apply(&mPreviewPanel->getPositionAnim(), mPreviewPanel->getPosition(), ci::vec2(0.f), 1.f, EaseInOutBack());
+            ci::app::timeline().apply(&mCanvas->getPositionAnim(), mCanvas->getPosition(), ci::vec2(0.f), 1.f, EaseInOutBack());
+            ci::app::timeline().apply(&mButtonMenu->getPositionAnim(), mButtonMenu->getPosition(), ci::vec2(0),1.f, EaseInOutBack());
+            
         }
         else
         {
+
 //            writeImage( "saved.png", mCanvas->getTexture() );
             writeImage(getDocumentsDirectory()/fs::path("ScrapWorkApp_screenShot.png"), copyWindowSurface(cinder::Area (glm::vec2(58.f, 340.f), glm::vec2(354.f, 669.f)))) ;
             
             activeContainer->setVisible(false);
+
+            activeContainer->setAlpha(0.f);
+
             mPile->removeAllChildren();
             mPile->reset();
 
-//            cout << waitContainer->getNumChildren() << endl ;;
             mPatches->removeAllChildren();
             mPatches->reset();
-            waitContainer->setVisible(true);
-//            cout<<"Change status 2 - to wait"<<endl;
+            ci::app::timeline().apply(&waitContainer->getAlphaAnim(), 0.f, 1.f,0.5f, EaseInAtan());
         }
     }
     else {
         mPatches->swirl();
-//        cout << "Change status 3 - to intro Frame" << endl ;
     }
 }
 
