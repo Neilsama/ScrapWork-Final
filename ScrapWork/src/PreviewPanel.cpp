@@ -21,7 +21,7 @@ PreviewPanelRef PreviewPanel::create(ci::gl::TextureRef frameTexture)
 }
 
 PreviewPanel::PreviewPanel()
-:mPos(ci::vec2(0.f, 20.f))
+:mPos(ci::vec2(0.f, 220.f))
 {}
 
 void PreviewPanel::reset()
