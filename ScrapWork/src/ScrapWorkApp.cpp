@@ -38,7 +38,6 @@ public:
     void setup() override;
     void update() override;
     void draw() override ;
-    void mouseDown(MouseEvent event) override ;
     
     
     void generateNewPatch(int number);
@@ -66,6 +65,7 @@ public:
     int                             mCounter ;
     buttonMenuRef                   mButtonMenu ;
     po::scene::ImageRef             mClearButton ;
+    bool                            firstTimeActive ;
     
     int                             statusCounter = 0 ;
     
@@ -80,6 +80,7 @@ void ScrapWorkApp::setup()
 {
     ci::app::setWindowSize(1280.f, 1024.f);
     
+    firstTimeActive = true ;
     mCounter = 0 ;
     mainContainer = po::scene::NodeContainer::create();
     mScence = po::scene::Scene::create(mainContainer);
@@ -118,9 +119,9 @@ void ScrapWorkApp::setup()
     
     mCanvas = Canvas::create(ci::gl::Texture::create(ci::loadImage(loadAsset("bg_canvas.png")))); //  create canvas
     
-    activeContainer->addChild(mSelectPatchPanel);
-    activeContainer->addChild(mPreviewPanel);
-    activeContainer->addChild(mCanvas);
+//    activeContainer->addChild(mSelectPatchPanel);
+//    activeContainer->addChild(mPreviewPanel);
+//    activeContainer->addChild(mCanvas);
     
     
     // connect signal;
@@ -130,7 +131,7 @@ void ScrapWorkApp::setup()
     
     mButtonMenu = buttonMenu::create() ;
     mButtonMenu->setPosition(ci::vec2(1480.f, 0.f));
-    activeContainer->addChild(mButtonMenu) ;
+//    activeContainer->addChild(mButtonMenu) ;
     
     mPile->getChangeStatusSigal().connect(std::bind(&ScrapWorkApp::ChangeStatus, this,std::placeholders::_1));
     
@@ -203,6 +204,14 @@ void ScrapWorkApp::ChangeStatus(bool state)
             
             waitContainer->setAlpha(0.f);
             
+            if(firstTimeActive == true) {
+                
+                activeContainer->addChild(mSelectPatchPanel);
+                activeContainer->addChild(mPreviewPanel);
+                activeContainer->addChild(mCanvas);
+                activeContainer->addChild(mButtonMenu) ;
+
+            }
             mSelectPatchPanel->removeAllChildren();
             mSelectPatchPanel->reset();
             mSelectPatchPanel->setPosition(ci::vec2(0.f, -200.f));
@@ -214,6 +223,7 @@ void ScrapWorkApp::ChangeStatus(bool state)
             mPreviewPanel->removeAllChildren();
             mPreviewPanel->reset();
             mPreviewPanel->setPosition(ci::vec2(-320.f, 0.f));
+            mPile->removeAllChildren();
             
             mPreviewPanel->getButton()->getbuttonClickedSignal().connect(std::bind(&ScrapWorkApp::ChangeStatus, this, std::placeholders::_1));
             
@@ -221,10 +231,10 @@ void ScrapWorkApp::ChangeStatus(bool state)
             
             activeContainer->setAlpha(1.f);
             
-            ci::app::timeline().apply(&mSelectPatchPanel->getPositionAnim(), mSelectPatchPanel->getPosition(), ci::vec2(0.f, 20.f), 1.f, EaseInOutBack());
-            ci::app::timeline().apply(&mPreviewPanel->getPositionAnim(), mPreviewPanel->getPosition(), ci::vec2(0.f), 1.f, EaseInOutBack());
-            ci::app::timeline().apply(&mCanvas->getPositionAnim(), mCanvas->getPosition(), ci::vec2(0.f), 1.f, EaseInOutBack());
-            ci::app::timeline().apply(&mButtonMenu->getPositionAnim(), mButtonMenu->getPosition(), ci::vec2(0),1.f, EaseInOutBack());
+//            ci::app::timeline().apply(&mSelectPatchPanel->getPositionAnim(), mSelectPatchPanel->getPosition(), ci::vec2(0.f, 20.f), 1.f, EaseInOutBack());
+//            ci::app::timeline().apply(&mPreviewPanel->getPositionAnim(), mPreviewPanel->getPosition(), ci::vec2(0.f), 1.f, EaseInOutBack());
+//            ci::app::timeline().apply(&mCanvas->getPositionAnim(), mCanvas->getPosition(), ci::vec2(0.f), 1.f, EaseInOutBack());
+//            ci::app::timeline().apply(&mButtonMenu->getPositionAnim(), mButtonMenu->getPosition(), ci::vec2(0),1.f, EaseInOutBack());
             
         }
         else
@@ -258,10 +268,6 @@ void ScrapWorkApp::update()
     mPatches->addForce() ;
 }
 
-void ScrapWorkApp::mouseDown(MouseEvent event) {
-    cout << event.getX() << endl ;
-    cout << event.getY() << endl ;
-}
 
 void ScrapWorkApp::draw()
 {
