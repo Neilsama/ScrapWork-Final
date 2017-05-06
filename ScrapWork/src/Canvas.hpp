@@ -33,7 +33,7 @@ public:
     void setTexture(ci::gl::TextureRef mTex, int getCounter) ;
     std::vector<po::scene::ShapeRef> sendPatches() {return mPatches ;}
     void   reset();
-    
+    ci::gl::TextureRef   getTexture(){return mCanvasTexture ;}
 private:
     Canvas();
     void setup(ci::gl::TextureRef   canvasTexture);

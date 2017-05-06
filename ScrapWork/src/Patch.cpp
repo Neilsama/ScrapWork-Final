@@ -73,7 +73,9 @@ void Patch::onMouseEvent(po::scene::MouseEvent &event)
             
         case po::scene::MouseEvent::DRAG_INSIDE:
         {
-            mPPatchImg->setPosition(event.getLocalPos() - ci::vec2(25));
+            if(isNew == true) {
+                mPPatchImg->setPosition(event.getLocalPos() - ci::vec2(25));
+            }
             break;
         }
             

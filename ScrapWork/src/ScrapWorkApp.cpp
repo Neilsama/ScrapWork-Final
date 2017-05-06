@@ -25,6 +25,9 @@
 #include "Pile.h"
 #include "Patch_Particles.h"
 
+#include "cinder/ImageIo.h"
+#include "cinder/Utilities.h"
+
 using namespace ci;
 using namespace ci::app;
 using namespace std;
@@ -35,6 +38,7 @@ public:
     void setup() override;
     void update() override;
     void draw() override ;
+    void mouseDown(MouseEvent event) override ;
     
     
     void generateNewPatch(int number);
@@ -57,7 +61,7 @@ public:
     po::scene::ShapeRef             mBlack ;
     
     
-    std::vector<int>           patchesQueue; //all id of patches that already add in canvas
+    std::vector<int>                patchesQueue; //all id of patches that already add in canvas
     PatchRef                        newPatch; // when click on patch in grid, will generate a new patch
     int                             mCounter ;
     buttonMenuRef                   mButtonMenu ;
@@ -132,6 +136,7 @@ void ScrapWorkApp::setup()
 //  when clicked the patch, it will generate a new patch
 void ScrapWorkApp::generateNewPatch(int number)
 {
+    
     newPatch = Patch::create(mSelectPatchPanel->getPatch(number)->getTexture());
     ci::app::timeline().apply(&newPatch->getPositionAnim(), mSelectPatchPanel->getPatch(number)->getPosition(), mSelectPatchPanel->getPatch(number)->getPosition()-ci::vec2(-10), 0.2f, EaseInAtan());
     ci::app::timeline().apply(&newPatch->getAlphaAnim(), 0.f, 1.f, 0.2f, EaseInAtan());
@@ -142,7 +147,7 @@ void ScrapWorkApp::generateNewPatch(int number)
     activeContainer->addChild(newPatch);
     
     newPatch->getIsInCavasSignal().connect(std::bind(&ScrapWorkApp::showOnCanvas, this,std::placeholders::_1));
-    
+        
 }
 
 //  the function that show all the patches on the canvas. The patch will
@@ -155,7 +160,7 @@ void ScrapWorkApp::showOnCanvas(bool state)
             patchesQueue.push_back(newPatch->getID());
             activeContainer->removeChild(newPatch);
             mCanvas->addChild(newPatch);
-            
+
             // newPatch
             for(int i = 0 ; i < 5 ; i++) {
                 for(int j = 0 ; j < 4 ; j++) {
@@ -172,13 +177,13 @@ void ScrapWorkApp::showOnCanvas(bool state)
                 }
             }
         }
-        
     }else{
         if(newPatch->getIsNew())
             activeContainer->removeChild(newPatch);
         else
             mCanvas->removeChild(newPatch);
     }
+    
 }
 
 //  change application's status of waiting status and active status
@@ -205,6 +210,9 @@ void ScrapWorkApp::ChangeStatus(bool state)
         }
         else
         {
+//            writeImage( "saved.png", mCanvas->getTexture() );
+            writeImage(getDocumentsDirectory()/fs::path("ScrapWorkApp_screenShot.png"), copyWindowSurface(cinder::Area (glm::vec2(58.f, 340.f), glm::vec2(354.f, 669.f)))) ;
+            
             activeContainer->setVisible(false);
             mPile->removeAllChildren();
             mPile->reset();
@@ -228,6 +236,11 @@ void ScrapWorkApp::update()
     mScence->update();
     mPatches->update() ;
     mPatches->addForce() ;
+}
+
+void ScrapWorkApp::mouseDown(MouseEvent event) {
+    cout << event.getX() << endl ;
+    cout << event.getY() << endl ;
 }
 
 void ScrapWorkApp::draw()
