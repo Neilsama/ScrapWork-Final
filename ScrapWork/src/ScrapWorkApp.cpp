@@ -244,7 +244,7 @@ void ScrapWorkApp::ChangeStatus(bool state)
             writeImage(getDocumentsDirectory()/fs::path("ScrapWorkApp_screenShot.png"), copyWindowSurface(cinder::Area (glm::vec2(58.f, 340.f), glm::vec2(354.f, 669.f)))) ;
             
             activeContainer->removeAllChildren();
-            
+            mButtonMenu->reset();
             activeContainer->setAlpha(0.f);
             
             

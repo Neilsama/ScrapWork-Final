@@ -9,6 +9,19 @@ buttonMenuRef buttonMenu::create()
     return ref;
 }
 
+void buttonMenu::reset()
+{
+    btn1->setToNormal();
+    btn2->setToNormal();
+    btn3->setToNormal();
+    btn4->setToNormal();
+
+    popBox1->setAlpha(0.f);
+    popBox2->setAlpha(0.f);
+    popBox3->setAlpha(0.f);
+    popBox4->setAlpha(0.f);
+}
+
 void buttonMenu::setup(){
     
     //btn setup
