@@ -68,7 +68,6 @@ void Pile::setup(){
         getSignal(po::scene::MouseEvent::DOWN_INSIDE).connect(std::bind(&Pile::mousedown, this, std::placeholders::_1)) ;
         createSignalOnce = false ;
     }
-    cout<<"connect inner signal in pile"<<endl;
 }
 
 void Pile::update(){

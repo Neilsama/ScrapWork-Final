@@ -37,6 +37,7 @@ void Canvas::setup(ci::gl::TextureRef   canvasTexture)
             mPatches[mCounter]->setPosition(428+100*i, 337+100*j) ;
             mPatches[mCounter]->setAlpha(0.f) ;
             addChild(mPatches[mCounter]) ;
+            mPatches[mCounter]->setDrawBounds(true);
             mCounter++ ;
             if(i == 4 && j == 3) {
                 mCounter = 0 ;
