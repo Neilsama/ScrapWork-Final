@@ -96,7 +96,10 @@ void Pile::mousedown( po::scene::MouseEvent &event ) {
                 showTextFirst = false ;
                 hintImage->setPosition(ci::vec2 (890.f,485.f));
                 hintImage->setAlpha(0.f);
-                ci::app::timeline().apply(&hintImage->getAlphaAnim(), 1.f, 6.f, ci::EaseOutExpo()) ;
+                ci::app::timeline().apply(&hintImage->getAlphaAnim(), 0.f, 0.5f);
+                ci::app::timeline().appendTo(&hintImage->getAlphaAnim(), 1.f, 1.f, ci::EaseOutExpo()) ;
+                
+        
                 break;
             }
             else if(event.getWindowPos().x >= 380 && event.getWindowPos().x<= 900
