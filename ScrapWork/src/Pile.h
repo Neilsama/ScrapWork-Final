@@ -38,12 +38,15 @@ private:
     gl::TextureRef          pileActive2Texture;
     gl::TextureRef          pileActive3Texture;
     gl::TextureRef          introTexture;
+    gl::TextureRef          hintTexture;
     
     po::scene::ImageRef     pileWaitImage;
     po::scene::ImageRef     pileActive1Image;
     po::scene::ImageRef     pileActive2Image;
     po::scene::ImageRef     pileActive3Image;
     po::scene::ImageRef     introImage;
+    po::scene::ImageRef     hintImage;
+
     
     
 };

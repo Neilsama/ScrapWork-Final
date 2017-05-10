@@ -28,12 +28,14 @@ void Pile::setup(){
     pileActive2Texture = gl::Texture::create(loadImage(loadAsset("active_pile_2.png")));
     pileActive3Texture = gl::Texture::create(loadImage(loadAsset("active_pile_3.png")));
     introTexture = gl::Texture::create(loadImage(loadAsset("introFrame.png")));
+    hintTexture = gl::Texture::create(loadImage(loadAsset("hint.png")));
     
     pileWaitImage = po::scene::Image::create(pileWaitTexture);
     pileActive1Image = po::scene::Image::create(pileActive1Texture);
     pileActive2Image = po::scene::Image::create(pileActive2Texture);
     pileActive3Image = po::scene::Image::create(pileActive3Texture);
     introImage = po::scene::Image::create(introTexture);
+    hintImage = po::scene::Image::create(hintTexture);
     
     
     pileWaitImage->setAlignment(po::scene::Alignment::BOTTOM_CENTER);
@@ -50,6 +52,7 @@ void Pile::setup(){
     
     pileActive3Image->setAlignment(po::scene::Alignment::BOTTOM_CENTER);
     pileActive3Image->setPosition(ci::vec2(ci::app::getWindowWidth()/2, ci::app::getWindowHeight()));
+    pileActive3Image->setDrawBounds(false);
     
     
     introImage->setAlpha(0.f);
@@ -57,12 +60,18 @@ void Pile::setup(){
     introImage->setPosition(ci::vec2(ci::app::getWindowWidth()/2, ci::app::getWindowHeight()));
     introImage->setDrawBounds(false);
     
+    hintImage->setPosition(ci::vec2(975.f, 715.f));
+    
+                           
+    
+    
     addChild(introImage);
     addChild(pileWaitImage);
     
     addChild(pileActive1Image);
     addChild(pileActive2Image);
     addChild(pileActive3Image);
+    addChild(hintImage);
     
     if(createSignalOnce == true) {
         getSignal(po::scene::MouseEvent::DOWN_INSIDE).connect(std::bind(&Pile::mousedown, this, std::placeholders::_1)) ;
@@ -80,15 +89,18 @@ void Pile::mousedown( po::scene::MouseEvent &event ) {
             
         case po::scene::MouseEvent::DOWN_INSIDE:
         {
-            if (event.getWindowPos().x >= pileActive3Image->getPosition().x-400 && event.getWindowPos().x <= pileActive3Image->getPosition().x+400 && event.getWindowPos().y >= pileActive3Image->getPosition().y-200 && event.getWindowPos().y <= pileActive3Image->getPosition().y)
+            if (event.getWindowPos().x >= pileActive3Image->getPosition().x-400 && event.getWindowPos().x <= pileActive3Image->getPosition().x+400 && event.getWindowPos().y >= pileActive3Image->getPosition().y-160 && event.getWindowPos().y <= pileActive3Image->getPosition().y)
             {
                 pileAnimation();
                 mChangeStatusSignal.emit(false);
                 showTextFirst = false ;
+                hintImage->setPosition(ci::vec2 (890.f,485.f));
+                hintImage->setAlpha(0.f);
+                ci::app::timeline().apply(&hintImage->getAlphaAnim(), 1.f, 6.f, ci::EaseOutExpo()) ;
                 break;
             }
             else if(event.getWindowPos().x >= 380 && event.getWindowPos().x<= 900
-                    && event.getWindowPos().y <= 615 && event.getWindowPos().y >= 375 )
+                    && event.getWindowPos().y <= 720 && event.getWindowPos().y >= 450 )
             {
                 if(showTextFirst == false) {
                     mChangeStatusSignal.emit(true);
@@ -111,9 +123,15 @@ void Pile::pileAnimation(){
     
     ci::app::timeline().apply(&introImage->getAlphaAnim(), 1.f, 1.f, ci::EaseInCubic()) ;
     ci::vec2 moveEndPos = ci::vec2(ci::app::getWindowWidth()/2, ci::app::getWindowHeight()-130.f);
-    ci::app::timeline().apply(&introImage->getPositionAnim(), moveEndPos, 1.f, ci::EaseOutExpo());
+    ci::app::timeline().apply(&introImage->getPositionAnim(), moveEndPos, 2.f, ci::EaseOutExpo());
     
     ci::app::timeline().apply(&pileWaitImage->getAlphaAnim(), 0.f, 0.5f, ci::EaseOutExpo()) ;
-    ci::app::timeline().apply(&pileActive1Image->getAlphaAnim(), 0.f, 1.f, ci::EaseOutExpo()) ;
-    ci::app::timeline().apply(&pileActive2Image->getAlphaAnim(), 0.f, 1.5f, ci::EaseOutExpo()) ;
+    ci::app::timeline().apply(&pileActive1Image->getAlphaAnim(), 0.f, 1.5f, ci::EaseOutExpo()) ;
+    ci::app::timeline().apply(&pileActive2Image->getAlphaAnim(), 0.f, 2.5f, ci::EaseOutExpo()) ;
+    
+    ci::app::timeline().apply(&hintImage->getAlphaAnim(), 0.f, 0.3f) ;
+   
+    
+    
+    
 }
