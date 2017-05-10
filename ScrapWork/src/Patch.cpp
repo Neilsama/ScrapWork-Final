@@ -52,7 +52,7 @@ void Patch::onMouseEvent(po::scene::MouseEvent &event)
                 
             }else if (mousePos.x >= 426 && mousePos.x <= 930 && mousePos.y >= 295 && mousePos.y <= 696)
             {
-                isNew = false;
+                isNew = true;
             }
             
             break;

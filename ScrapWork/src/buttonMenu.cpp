@@ -9,6 +9,19 @@ buttonMenuRef buttonMenu::create()
     return ref;
 }
 
+void buttonMenu::reset()
+{
+    btn1->setToNormal();
+    btn2->setToNormal();
+    btn3->setToNormal();
+    btn4->setToNormal();
+    
+    popBox1->setAlpha(0.f);
+    popBox2->setAlpha(0.f);
+    popBox3->setAlpha(0.f);
+    popBox4->setAlpha(0.f);
+}
+
 void buttonMenu::setup(){
     
     //btn setup
@@ -26,28 +39,28 @@ void buttonMenu::setup(){
     btn1 = Buttons::create(btn1Texture, btn1ActiveTexture);
     btn1->setPosition(ci::vec2 (1046.f, 330.f));
     btn1->setID(1);
-//    btn1->setDrawBounds(true) ;
+    //    btn1->setDrawBounds(true) ;
     addChild(btn1);
     
     
     btn2 = Buttons::create(btn2Texture, btn2ActiveTexture);
     btn2->setPosition(ci::vec2 (1046.f, 330 + 78.f));
     btn2->setID(2);
-//    btn2->setDrawBounds(true) ;
+    //    btn2->setDrawBounds(true) ;
     addChild(btn2);
     
     
     btn3 = Buttons::create(btn3Texture, btn3ActiveTexture);
     btn3->setPosition(ci::vec2 (1046.f, 330 + (78 * 2)));
     btn3->setID(3);
-//    btn3->setDrawBounds(true) ;
+    //    btn3->setDrawBounds(true) ;
     addChild(btn3);
     
     
     btn4 = Buttons::create(btn4Texture, btn4ActiveTexture);
     btn4->setPosition(ci::vec2 (1046.f, 330 + (78 * 3)));
     btn4->setID(4);
-//    btn4->setDrawBounds(true) ;
+    //    btn4->setDrawBounds(true) ;
     addChild(btn4);
     
     
@@ -73,10 +86,10 @@ void buttonMenu::setup(){
     popBox2->setAlpha(0.f);
     popBox3->setAlpha(0.f);
     popBox4->setAlpha(0.f);
-//    popBox1->setDrawBounds(true);
-//    popBox2->setDrawBounds(true);
-//    popBox3->setDrawBounds(true);
-//    popBox4->setDrawBounds(true);
+    //    popBox1->setDrawBounds(true);
+    //    popBox2->setDrawBounds(true);
+    //    popBox3->setDrawBounds(true);
+    //    popBox4->setDrawBounds(true);
     
     
     
@@ -90,7 +103,7 @@ void buttonMenu::setup(){
     closeIconTexture = gl::Texture::create(loadImage(loadAsset("close.png")));
     closeIcon = po::scene::Image::create(closeIconTexture);
     closeIcon ->setPosition(ci::vec2 (910.f, 300.f));
-//    closeIcon->setDrawBounds(false);
+    //    closeIcon->setDrawBounds(false);
     closeIcon->setAlpha(0.f);
     //    addChild(closeIcon);
     

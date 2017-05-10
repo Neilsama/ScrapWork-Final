@@ -17,7 +17,7 @@ public:
     void updateMenuState(int number);
     void updatePopBoxState(int number);
     void mouseDown(po::scene::MouseEvent &event);
-    
+    void reset();
     bool boxIsActive;
     
     
