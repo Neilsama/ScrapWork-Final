@@ -46,7 +46,7 @@ void Patch::onMouseEvent(po::scene::MouseEvent &event)
         case po::scene::MouseEvent::DOWN_INSIDE:
         {
             // check mouse is in grid
-            if (mousePos.y <= 180)
+            if (mousePos.y <= 200)
             {
                 mNewPatchSignal.emit(mID);
                 
