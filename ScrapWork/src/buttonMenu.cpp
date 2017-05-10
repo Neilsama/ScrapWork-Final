@@ -15,7 +15,7 @@ void buttonMenu::reset()
     btn2->setToNormal();
     btn3->setToNormal();
     btn4->setToNormal();
-    
+
     popBox1->setAlpha(0.f);
     popBox2->setAlpha(0.f);
     popBox3->setAlpha(0.f);
