@@ -29,6 +29,7 @@ private:
     void pileAnimation();
     
     bool createSignalOnce = true ;
+    bool showTextFirst = true ;
     
     
     changeStatusSignal      mChangeStatusSignal;

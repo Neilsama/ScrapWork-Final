@@ -68,7 +68,6 @@ void Pile::setup(){
         getSignal(po::scene::MouseEvent::DOWN_INSIDE).connect(std::bind(&Pile::mousedown, this, std::placeholders::_1)) ;
         createSignalOnce = false ;
     }
-    cout<<"connect inner signal in pile"<<endl;
 }
 
 void Pile::update(){
@@ -85,12 +84,16 @@ void Pile::mousedown( po::scene::MouseEvent &event ) {
             {
                 pileAnimation();
                 mChangeStatusSignal.emit(false);
+                showTextFirst = false ;
                 break;
             }
             else if(event.getWindowPos().x >= 380 && event.getWindowPos().x<= 900
                     && event.getWindowPos().y <= 615 && event.getWindowPos().y >= 375 )
             {
-                mChangeStatusSignal.emit(true);
+                if(showTextFirst == false) {
+                    mChangeStatusSignal.emit(true);
+                    showTextFirst = true ;
+                }
                 break;
             }
         }

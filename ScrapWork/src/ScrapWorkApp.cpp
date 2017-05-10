@@ -91,13 +91,13 @@ void ScrapWorkApp::setup()
     
     activeContainer = po::scene::NodeContainer::create();//  create boss container
     activeContainer->setAlpha(0.f);
-
+    
     
     waitContainer = po::scene::NodeContainer::create();
     
     mainContainer->addChild(activeContainer);
     mainContainer->addChild(waitContainer);
-
+    
     
     
     // set up wait container
@@ -119,9 +119,9 @@ void ScrapWorkApp::setup()
     
     mCanvas = Canvas::create(ci::gl::Texture::create(ci::loadImage(loadAsset("bg_canvas.png")))); //  create canvas
     
-//    activeContainer->addChild(mSelectPatchPanel);
-//    activeContainer->addChild(mPreviewPanel);
-//    activeContainer->addChild(mCanvas);
+    //    activeContainer->addChild(mSelectPatchPanel);
+    //    activeContainer->addChild(mPreviewPanel);
+    //    activeContainer->addChild(mCanvas);
     
     
     // connect signal;
@@ -131,7 +131,7 @@ void ScrapWorkApp::setup()
     
     mButtonMenu = buttonMenu::create() ;
     mButtonMenu->setPosition(ci::vec2(1480.f, 0.f));
-//    activeContainer->addChild(mButtonMenu) ;
+    //    activeContainer->addChild(mButtonMenu) ;
     
     mPile->getChangeStatusSigal().connect(std::bind(&ScrapWorkApp::ChangeStatus, this,std::placeholders::_1));
     
@@ -153,7 +153,7 @@ void ScrapWorkApp::generateNewPatch(int number)
     activeContainer->addChild(newPatch);
     
     newPatch->getIsInCavasSignal().connect(std::bind(&ScrapWorkApp::showOnCanvas, this,std::placeholders::_1));
-        
+    
 }
 
 //  the function that show all the patches on the canvas. The patch will
@@ -166,7 +166,7 @@ void ScrapWorkApp::showOnCanvas(bool state)
             patchesQueue.push_back(newPatch->getID());
             activeContainer->removeChild(newPatch);
             mCanvas->addChild(newPatch);
-
+            
             // newPatch
             for(int i = 0 ; i < 5 ; i++) {
                 for(int j = 0 ; j < 4 ; j++) {
@@ -197,21 +197,16 @@ void ScrapWorkApp::showOnCanvas(bool state)
 //  waiting page another one is pile introframe to change to active page
 void ScrapWorkApp::ChangeStatus(bool state)
 {
-
+    
     
     if (state) {
         if (waitContainer->getAlpha() == 1.f) {
             
             waitContainer->setAlpha(0.f);
+            waitContainer->removeAllChildren();
             
-            if(firstTimeActive == true) {
-                
-                activeContainer->addChild(mSelectPatchPanel);
-                activeContainer->addChild(mPreviewPanel);
-                activeContainer->addChild(mCanvas);
-                activeContainer->addChild(mButtonMenu) ;
-
-            }
+            activeContainer->setAlpha(1.f);
+            
             mSelectPatchPanel->removeAllChildren();
             mSelectPatchPanel->reset();
             mSelectPatchPanel->setPosition(ci::vec2(0.f, -200.f));
@@ -223,33 +218,42 @@ void ScrapWorkApp::ChangeStatus(bool state)
             mPreviewPanel->removeAllChildren();
             mPreviewPanel->reset();
             mPreviewPanel->setPosition(ci::vec2(-320.f, 0.f));
-            mPile->removeAllChildren();
             
             mPreviewPanel->getButton()->getbuttonClickedSignal().connect(std::bind(&ScrapWorkApp::ChangeStatus, this, std::placeholders::_1));
             
             mButtonMenu->setPosition(ci::vec2(1480.f, 0.f));
             
-            activeContainer->setAlpha(1.f);
             
-//            ci::app::timeline().apply(&mSelectPatchPanel->getPositionAnim(), mSelectPatchPanel->getPosition(), ci::vec2(0.f, 20.f), 1.f, EaseInOutBack());
-//            ci::app::timeline().apply(&mPreviewPanel->getPositionAnim(), mPreviewPanel->getPosition(), ci::vec2(0.f), 1.f, EaseInOutBack());
-//            ci::app::timeline().apply(&mCanvas->getPositionAnim(), mCanvas->getPosition(), ci::vec2(0.f), 1.f, EaseInOutBack());
-//            ci::app::timeline().apply(&mButtonMenu->getPositionAnim(), mButtonMenu->getPosition(), ci::vec2(0),1.f, EaseInOutBack());
             
+            activeContainer->addChild(mSelectPatchPanel);
+            activeContainer->addChild(mCanvas);
+            activeContainer->addChild(mPreviewPanel);
+            activeContainer->addChild(mButtonMenu);
+            
+            
+            
+            ci::app::timeline().apply(&mSelectPatchPanel->getPositionAnim(), mSelectPatchPanel->getPosition(), ci::vec2(0.f, 20.f), 1.f, EaseInOutBack());
+            ci::app::timeline().apply(&mPreviewPanel->getPositionAnim(), mPreviewPanel->getPosition(), ci::vec2(0.f), 1.f, EaseInOutBack());
+            ci::app::timeline().apply(&mCanvas->getPositionAnim(), mCanvas->getPosition(), ci::vec2(0.f), 1.f, EaseInOutBack());
+            ci::app::timeline().apply(&mButtonMenu->getPositionAnim(), mButtonMenu->getPosition(), ci::vec2(0),1.f, EaseInOutBack());
+            cout<<"animation runed"<<activeContainer->isVisible()<< endl;
         }
         else
         {
-
-//            writeImage( "saved.png", mCanvas->getTexture() );
+            
             writeImage(getDocumentsDirectory()/fs::path("ScrapWorkApp_screenShot.png"), copyWindowSurface(cinder::Area (glm::vec2(58.f, 340.f), glm::vec2(354.f, 669.f)))) ;
             
-            activeContainer->setVisible(false);
-
+            activeContainer->removeAllChildren();
+            
             activeContainer->setAlpha(0.f);
-
+            
+            
+            waitContainer->addChild(mPatches);
+            waitContainer->addChild(mPile);
+            
             mPile->removeAllChildren();
             mPile->reset();
-
+            
             mPatches->removeAllChildren();
             mPatches->reset();
             ci::app::timeline().apply(&waitContainer->getAlphaAnim(), 0.f, 1.f,0.5f, EaseInAtan());
