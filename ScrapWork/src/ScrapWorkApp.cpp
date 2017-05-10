@@ -11,8 +11,22 @@
 #include "cinder/app/RendererGl.h"
 #include "cinder/gl/gl.h"
 
+#include "poScene.h"
+#include "poImage.h"
+#include "poShape.h"
+#include "poNodeContainer.h"
 
-#include "scrapWorkController.hpp"
+#include "SelectPatchPanel.h"
+#include "Patch.h"
+#include "PreviewPanel.hpp"
+#include "Canvas.hpp"
+
+#include "buttonMenu.h"
+#include "Pile.h"
+#include "Patch_Particles.h"
+
+#include "cinder/ImageIo.h"
+#include "cinder/Utilities.h"
 
 using namespace ci;
 using namespace ci::app;
@@ -24,10 +38,6 @@ public:
     void setup() override;
     void update() override;
     void draw() override ;
-<<<<<<< HEAD
-
-    scrapWorkControllerRef          mController;
-=======
     
     
     void generateNewPatch(int number);
@@ -62,15 +72,12 @@ public:
     Patch_ParticlesRef              mPatches ;
     float LIFE_SPAN = 500000 ;
     const float RANDOM_FORCE_RANGE = 0.005f ;
->>>>>>> origin/develop
     
+    std::vector<glm::vec2>          randomForces ;
 };
 
 void ScrapWorkApp::setup()
 {
-<<<<<<< HEAD
-    mController = scrapWorkController::create();
-=======
     ci::app::setWindowSize(1280.f, 1024.f);
     
     firstTimeActive = true ;
@@ -129,13 +136,10 @@ void ScrapWorkApp::setup()
     mPile->getChangeStatusSigal().connect(std::bind(&ScrapWorkApp::ChangeStatus, this,std::placeholders::_1));
     
     mPreviewPanel->getButton()->getbuttonClickedSignal().connect(std::bind(&ScrapWorkApp::ChangeStatus, this, std::placeholders::_1));
->>>>>>> origin/develop
 }
 
 
 //  when clicked the patch, it will generate a new patch
-<<<<<<< HEAD
-=======
 void ScrapWorkApp::generateNewPatch(int number)
 {
     
@@ -256,18 +260,20 @@ void ScrapWorkApp::ChangeStatus(bool state)
     }
 }
 
->>>>>>> origin/develop
 
 void ScrapWorkApp::update()
 {
-    mController->update();
+    mScence->update();
+    mPatches->update() ;
+    mPatches->addForce() ;
 }
 
 
 void ScrapWorkApp::draw()
 {
     gl::clear( Color( 1, 1, 1 ) );
-    mController->draw();
+    mScence->draw();
+    
 }
 
 CINDER_APP( ScrapWorkApp, RendererGl )
