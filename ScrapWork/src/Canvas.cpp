@@ -28,6 +28,7 @@ void Canvas::setup(ci::gl::TextureRef   canvasTexture)
     mCanvasTexture = canvasTexture;
     mPCanvasImg = po::scene::Image::create(mCanvasTexture);
     mPCanvasImg->setPosition(mPosition);
+    mPCanvasImg->setDrawBounds(true) ;
     addChild(mPCanvasImg);
     
     
@@ -36,6 +37,7 @@ void Canvas::setup(ci::gl::TextureRef   canvasTexture)
             mPatches.push_back(po::scene::Shape::createRect(100.f,100.f)) ;
             mPatches[mCounter]->setPosition(428+100*i, 337+100*j) ;
             mPatches[mCounter]->setAlpha(0.f) ;
+            mPatches[mCounter]->setDrawBounds(true) ;
             addChild(mPatches[mCounter]) ;
             mPatches[mCounter]->setDrawBounds(true);
             mCounter++ ;
