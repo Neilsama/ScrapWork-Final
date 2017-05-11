@@ -47,6 +47,7 @@ public:
     po::scene::SceneRef             mScence;
     
     po::scene::NodeContainerRef     mainContainer;
+    
     po::scene::NodeContainerRef     activeContainer;
     po::scene::NodeContainerRef     waitContainer;
     
@@ -57,21 +58,21 @@ public:
     SelectPatchPanelRef             mSelectPatchPanel; //  select patch panel image
     PreviewPanelRef                 mPreviewPanel; //  preview panel
     CanvasRef                       mCanvas; // canvas image
-    po::scene::ShapeRef             mBlack ;
+    //po::scene::ShapeRef             mBlack ;
     
     
     std::vector<int>                patchesQueue; //all id of patches that already add in canvas
     PatchRef                        newPatch; // when click on patch in grid, will generate a new patch
     int                             mCounter ;
     buttonMenuRef                   mButtonMenu ;
-    po::scene::ImageRef             mClearButton ;
+    //po::scene::ImageRef             mClearButton ;
     bool                            firstTimeActive ;
     
     int                             statusCounter = 0 ;
     
     Patch_ParticlesRef              mPatches ;
-    float LIFE_SPAN = 500000 ;
-    const float RANDOM_FORCE_RANGE = 0.005f ;
+    //float LIFE_SPAN = 500000 ;
+    //const float RANDOM_FORCE_RANGE = 0.005f ;
     
     std::vector<glm::vec2>          randomForces ;
 };

@@ -51,7 +51,7 @@ private:
     po::scene::ImageRef     displayPatch ;
     po::scene::ShapeRef     displayText ;
     po::scene::ShapeRef     closeText ;
-    po::scene::ShapeRef     swirlingButtonEx ;
+    //po::scene::ShapeRef     swirlingButtonEx ;
     
     std::vector<ci::gl::TextureRef>     mPatchesTexture;
     std::vector<glm::vec2>              mRandForces ;

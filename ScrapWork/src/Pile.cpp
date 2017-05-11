@@ -60,7 +60,7 @@ void Pile::setup(){
     introImage->setPosition(ci::vec2(ci::app::getWindowWidth()/2, ci::app::getWindowHeight()));
     introImage->setDrawBounds(false);
     
-    hintImage->setPosition(ci::vec2(975.f, 715.f));
+    hintImage->setPosition(ci::vec2(975.f, 800.f));
     
                            
     
@@ -94,7 +94,7 @@ void Pile::mousedown( po::scene::MouseEvent &event ) {
                 pileAnimation();
                 mChangeStatusSignal.emit(false);
                 showTextFirst = false ;
-                hintImage->setPosition(ci::vec2 (890.f,485.f));
+                hintImage->setPosition(ci::vec2 (890.f,600.f));
                 hintImage->setAlpha(0.f);
                 ci::app::timeline().apply(&hintImage->getAlphaAnim(), 0.f, 0.5f);
                 ci::app::timeline().appendTo(&hintImage->getAlphaAnim(), 1.f, 1.f, ci::EaseOutExpo()) ;
